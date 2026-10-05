@@ -114,70 +114,20 @@
   .page-title .sub .highlight{color:var(--gold);font-weight:400}
 
   /* ========== CHIPS EM CARROSSEL ========== */
-  .chips-carousel{
-    position:relative;
-    margin:0 -14px 22px;
-    padding-top:calc(var(--header-h) + 20px);
-    padding-bottom:8px;
-  }
-
+  .chips-carousel{position:relative;margin:0 -14px 22px;padding-top:calc(var(--header-h) + 20px);padding-bottom:8px}
   .chips-carousel::before,
-  .chips-carousel::after{
-    content:"";
-    position:absolute;
-    top:calc(var(--header-h) + 20px);
-    bottom:8px;
-    width:28px;
-    pointer-events:none;
-    z-index:2;
-  }
+  .chips-carousel::after{content:"";position:absolute;top:calc(var(--header-h) + 20px);bottom:8px;width:28px;pointer-events:none;z-index:2}
   .chips-carousel::before{left:0;background:linear-gradient(90deg,var(--bg) 30%,transparent)}
   .chips-carousel::after{right:0;background:linear-gradient(270deg,var(--bg) 30%,transparent)}
 
-  .chips{
-    display:flex;
-    gap:8px;
-    overflow-x:auto;
-    overflow-y:hidden;
-    scroll-snap-type:x proximity;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-    -ms-overflow-style:none;
-    padding:0 14px;
-  }
+  .chips{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;padding:0 14px}
   .chips::-webkit-scrollbar{width:0;height:0;display:none}
 
-  .chip{
-    flex:0 0 auto;
-    scroll-snap-align:start;
-    padding:8px 18px;
-    border-radius:999px;
-    border:1px solid var(--border-gold);
-    background:rgba(10,8,8,.5);
-    backdrop-filter:blur(8px);
-    -webkit-backdrop-filter:blur(8px);
-    color:var(--text-muted);
-    font-size:.78rem;
-    font-weight:500;
-    cursor:pointer;
-    transition:all .25s var(--ease-luxury);
-    font-family:inherit;
-    letter-spacing:.02em;
-    white-space:nowrap;
-  }
+  .chip{flex:0 0 auto;scroll-snap-align:start;padding:8px 18px;border-radius:999px;border:1px solid var(--border-gold);background:rgba(10,8,8,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--text-muted);font-size:.78rem;font-weight:500;cursor:pointer;transition:all .25s var(--ease-luxury);font-family:inherit;letter-spacing:.02em;white-space:nowrap}
   .chip:hover{color:var(--text);border-color:var(--gold);background:rgba(212,176,122,.06)}
-  .chip[aria-pressed="true"]{
-    background:var(--gold-grad);
-    color:#1b1209;
-    border-color:transparent;
-    font-weight:700;
-    box-shadow:0 0 14px rgba(212,176,122,.28);
-  }
+  .chip[aria-pressed="true"]{background:var(--gold-grad);color:#1b1209;border-color:transparent;font-weight:700;box-shadow:0 0 14px rgba(212,176,122,.28)}
 
-  @media (min-width:900px){
-    .chips-carousel::before,
-    .chips-carousel::after{display:none}
-  }
+  @media (min-width:900px){.chips-carousel::before,.chips-carousel::after{display:none}}
 
   /* ========== MASONRY ========== */
   #catalogo{column-count:2;column-gap:12px}
@@ -198,13 +148,7 @@
   }
   .card:focus-visible{outline:2px solid rgba(241,220,166,.7);outline-offset:4px;box-shadow:0 0 14px rgba(212,176,122,.18)}
 
-  .card .card-inner{
-    border-radius:var(--radius);
-    overflow:hidden;
-    background:var(--bg-card);
-    display:block;
-    position:relative;
-  }
+  .card .card-inner{border-radius:var(--radius);overflow:hidden;background:var(--bg-card);display:block;position:relative}
 
   .card img{width:100%;display:block;object-fit:cover;object-position:center top;background:var(--bg-elevated);transition:transform .6s var(--ease-luxury)}
   .card .h-xs{height:150px}.card .h-sm{height:200px}.card .h-md{height:260px}.card .h-lg{height:320px}.card .h-xl{height:380px}.card .h-xxl{height:440px}
@@ -213,24 +157,8 @@
   .card-label{position:absolute;bottom:12px;left:50%;transform:translateX(-50%) translateY(10px);background:rgba(10,8,8,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border-gold);padding:6px 16px;border-radius:24px;white-space:nowrap;opacity:0;transition:all var(--transition);font-family:'Playfair Display',serif;font-style:italic;font-size:.78rem;font-weight:600;letter-spacing:.02em;pointer-events:none;color:var(--text);max-width:90%;overflow:hidden;text-overflow:ellipsis}
   .card-label .angle{color:var(--gold);font-family:'Inter',sans-serif;font-style:normal;font-size:.62rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-left:8px;opacity:.85}
 
-  .card-actions{
-    position:absolute;top:10px;right:10px;z-index:5;
-    display:flex;flex-direction:column;gap:8px;
-    opacity:0;transform:translateY(-6px);
-    transition:opacity .3s var(--ease-luxury),transform .3s var(--ease-luxury);
-    pointer-events:none;
-  }
-  .card-action{
-    width:36px;height:36px;border-radius:50%;
-    background:rgba(10,8,8,.72);
-    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-    border:1px solid var(--border-gold);
-    color:var(--gold-light);
-    display:flex;align-items:center;justify-content:center;
-    cursor:pointer;padding:0;line-height:1;
-    transition:all .25s var(--ease-luxury);
-    font-family:inherit;
-  }
+  .card-actions{position:absolute;top:10px;right:10px;z-index:5;display:flex;flex-direction:column;gap:8px;opacity:0;transform:translateY(-6px);transition:opacity .3s var(--ease-luxury),transform .3s var(--ease-luxury);pointer-events:none}
+  .card-action{width:36px;height:36px;border-radius:50%;background:rgba(10,8,8,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border-gold);color:var(--gold-light);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;line-height:1;transition:all .25s var(--ease-luxury);font-family:inherit}
   .card-action svg{width:16px;height:16px;display:block;pointer-events:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .card-action:hover{background:var(--gold);color:#1b1209;border-color:transparent;transform:scale(1.08)}
   .card-action.fav.on{color:var(--danger);border-color:rgba(184,58,74,.55);background:rgba(120,25,35,.55)}
@@ -238,46 +166,29 @@
   .card-action.fav.pop{animation:heartPop .45s ease}
 
   @media (hover:hover){
-    .card:hover,.card:focus-within{
-      transform:translateY(-4px) scale(1.015);
-      box-shadow:
-        0 0 14px rgba(241,220,166,.16),
-        0 0 26px rgba(212,176,122,.10),
-        0 14px 28px rgba(0,0,0,.5);
-      z-index:10;
-    }
+    .card:hover,.card:focus-within{transform:translateY(-4px) scale(1.015);box-shadow:0 0 14px rgba(241,220,166,.16),0 0 26px rgba(212,176,122,.10),0 14px 28px rgba(0,0,0,.5);z-index:10}
     .card:hover img{transform:scale(1.05)}
-    .card:hover .card-label,.card:focus-within .card-label{
-      opacity:1;transform:translateX(-50%) translateY(0);
-      background:rgba(10,8,8,.95);border-color:var(--gold);
-    }
-    .card:hover .card-actions,.card:focus-within .card-actions{
-      opacity:1;transform:translateY(0);pointer-events:auto;
-    }
+    .card:hover .card-label,.card:focus-within .card-label{opacity:1;transform:translateX(-50%) translateY(0);background:rgba(10,8,8,.95);border-color:var(--gold)}
+    .card:hover .card-actions,.card:focus-within .card-actions{opacity:1;transform:translateY(0);pointer-events:auto}
   }
   @media (hover:none){
     .card-label{opacity:1;transform:translateX(-50%) translateY(0);font-size:.72rem;padding:5px 12px}
     .card-label .angle{display:none}
-
     .card-actions{opacity:0;transform:translateY(-6px);pointer-events:none}
     .card.touch-ativo .card-actions{opacity:1;transform:translateY(0);pointer-events:auto}
-
     .card-action{width:32px;height:32px;background:rgba(10,8,8,.72)}
     .card-action svg{width:14px;height:14px}
-
     .card:not(.touch-ativo) .card-actions{opacity:0 !important;pointer-events:none !important}
   }
 
   /* ========== KITS ========== */
   .kits-lista{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
-
   .kit-bloco{position:relative;padding:1.5px;border-radius:calc(var(--radius) + 1.5px);background:var(--gold-grad);box-shadow:0 0 10px rgba(212,176,122,.07)}
   .kit-bloco-inner{background:var(--bg-card);border-radius:var(--radius);padding:22px 20px;display:block}
   .kit-bloco-titulo{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:1.05rem;color:var(--text);margin-bottom:4px;letter-spacing:-.005em}
   .kit-bloco-desc{font-size:.76rem;color:var(--text-muted);font-weight:300;line-height:1.5;margin-bottom:16px}
   .kit-bloco-divider{display:block;width:20px;height:1px;background:var(--border-gold);margin-bottom:16px}
   .kit-bloco-lista{display:flex;flex-direction:column;gap:8px}
-
   .kit-link{display:block;padding:12px 16px;border-radius:12px;border:1px solid var(--border);background:rgba(10,8,8,.6);text-decoration:none;transition:all .3s var(--ease-luxury);text-align:left}
   .kit-link:hover{background:rgba(212,176,122,.05);border-color:var(--border-gold);box-shadow:0 0 12px rgba(212,176,122,.10)}
   .kit-link .kit-nome{display:block;color:var(--gold-light);font-size:.82rem;font-weight:500;margin-bottom:3px;letter-spacing:.005em}
@@ -304,21 +215,10 @@
   .contato-form-row{display:grid;grid-template-columns:1fr;gap:12px}
   .contato-field{display:flex;flex-direction:column;gap:6px}
   .contato-field label{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
-  .contato-form input,.contato-form textarea{
-    background:var(--bg-card);border:1px solid var(--border);border-radius:10px;
-    padding:13px 16px;color:var(--text);font-size:.88rem;outline:none;
-    transition:all var(--transition);width:100%;font-weight:300;font-family:inherit;
-  }
-  .contato-form input:focus,.contato-form textarea:focus{
-    border-color:var(--gold);box-shadow:var(--focus-ring);background:var(--bg-elevated);
-  }
+  .contato-form input,.contato-form textarea{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:13px 16px;color:var(--text);font-size:.88rem;outline:none;transition:all var(--transition);width:100%;font-weight:300;font-family:inherit}
+  .contato-form input:focus,.contato-form textarea:focus{border-color:var(--gold);box-shadow:var(--focus-ring);background:var(--bg-elevated)}
   .contato-form textarea{min-height:120px;resize:vertical}
-  .contato-form button[type="submit"]{
-    background:var(--gold);border:none;border-radius:10px;padding:14px;
-    color:#1b1209;font-size:.82rem;font-weight:700;cursor:pointer;
-    letter-spacing:.08em;text-transform:uppercase;margin-top:4px;
-    transition:all var(--transition);font-family:inherit;
-  }
+  .contato-form button[type="submit"]{background:var(--gold);border:none;border-radius:10px;padding:14px;color:#1b1209;font-size:.82rem;font-weight:700;cursor:pointer;letter-spacing:.08em;text-transform:uppercase;margin-top:4px;transition:all var(--transition);font-family:inherit}
   .contato-form button[type="submit"]:hover{background:var(--gold-light);outline:var(--focus-ring)}
   .contato-form button[type="submit"]:disabled{opacity:.6;cursor:not-allowed}
 
@@ -335,7 +235,7 @@
   @media (min-width:480px){.contato-form-row{grid-template-columns:1fr 1fr}}
 
   /* ============================================================
-     MODAL — MOBILE FIRST + SCROLL-DRIVEN HERO
+     MODAL — MOBILE FIRST + SCROLL-DRIVEN HERO (contínuo)
      ============================================================ */
   .modal{
     position:fixed;inset:0;
@@ -346,28 +246,23 @@
     background:rgba(10,8,8,.98);
     backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
     z-index:1000;opacity:0;visibility:hidden;
-    transition:opacity .4s ease,visibility .4s,padding .35s var(--ease-luxury);
+    transition:opacity .4s ease,visibility .4s;
   }
   .modal.ativo{opacity:1;visibility:visible}
 
-  /* estágio do hero — encolhe no scroll */
+  /* Estágio do hero — altura controlada via JS inline */
   .modal-stage{
     position:relative;
-    flex:1 1 auto;
-    min-height:0;
+    flex:0 0 auto;
     width:100%;
+    height:62vh;
     display:flex;
     align-items:center;
     justify-content:center;
     touch-action:pan-y;
     overflow:hidden;
-    transition:flex-basis .4s var(--ease-luxury),
-               height .4s var(--ease-luxury),
-               min-height .4s var(--ease-luxury),
-               opacity .35s ease,
-               transform .4s var(--ease-luxury),
-               margin .4s var(--ease-luxury);
-    will-change:flex-basis,opacity,transform,height;
+    transition:opacity .3s ease,transform .3s var(--ease-luxury),height .35s var(--ease-luxury);
+    will-change:height,opacity,transform;
   }
 
   .modal-stage img{
@@ -377,13 +272,11 @@
     object-fit:cover;
     object-position:center center;
     border-radius:14px;
-    box-shadow:
-      0 0 18px rgba(212,176,122,.14),
-      0 0 40px rgba(0,0,0,.65);
-    transition:opacity .25s ease,
+    box-shadow:0 0 18px rgba(212,176,122,.14),0 0 40px rgba(0,0,0,.65);
+    transition:opacity .3s ease,
                transform .35s var(--ease-luxury),
-               width .4s var(--ease-luxury),
-               height .4s var(--ease-luxury);
+               width .35s var(--ease-luxury),
+               height .35s var(--ease-luxury);
     cursor:zoom-in;-webkit-user-drag:none;transform-origin:center center;
   }
   .modal-stage img.trocando{opacity:0}
@@ -397,42 +290,7 @@
   .modal-stage img.zoom.arrastando{cursor:grabbing;transition:none}
   .modal-stage.zoom-ativo{touch-action:none}
 
-  /* ===== ESTADO 1: rolando → imagem encolhe ===== */
-  .modal.scrolling .modal-stage{
-    flex:0 0 auto;
-    min-height:0;
-    height:min(38vh, 300px);
-  }
-  .modal.scrolling .modal-stage img{
-    width:min(58vw, 260px);
-    height:min(38vh, 300px);
-    transform:scale(.98);
-  }
-
-  /* ===== ESTADO 2: scrolled → imagem some ===== */
-  .modal.scrolled{
-    padding-top:12px;
-  }
-  .modal.scrolled .modal-stage{
-    flex:0 0 0;
-    height:0;
-    min-height:0;
-    opacity:0;
-    transform:translateY(-18px);
-    pointer-events:none;
-    margin-bottom:0;
-  }
-  .modal.scrolled .modal-stage img{
-    width:min(40vw, 160px);
-    height:0;
-    opacity:0;
-  }
-  .modal.scrolled .modal-acoes,
-  .modal.scrolled .modal-fechar{
-    opacity:0;
-    pointer-events:none;
-  }
-
+  /* controles */
   .btn-circ{
     width:44px;height:44px;border-radius:50%;
     background:rgba(10,8,8,.8);
@@ -441,7 +299,7 @@
     color:var(--gold-light);
     cursor:pointer;line-height:1;user-select:none;
     display:flex;align-items:center;justify-content:center;
-    padding:0;transition:all .3s var(--ease-luxury);
+    padding:0;transition:opacity .3s ease,background .3s var(--ease-luxury),transform .3s var(--ease-luxury),border-color .3s var(--ease-luxury),box-shadow .3s var(--ease-luxury);
     font-family:'Inter',sans-serif;font-weight:300;font-size:1.4rem;
     box-shadow:0 0 10px rgba(212,176,122,.08);
   }
@@ -454,26 +312,11 @@
     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     box-shadow:0 0 0 1px rgba(184,58,74,.12),0 4px 20px rgba(0,0,0,.4);
     z-index:20;font-size:1.1rem;
-    transition:opacity .3s ease,background .3s var(--ease-luxury),transform .3s var(--ease-luxury);
   }
   .modal-fechar:hover{background:rgba(150,35,48,.75);border-color:var(--danger);color:#f5c8ce;transform:scale(1.08) rotate(90deg);box-shadow:0 0 0 1px rgba(184,58,74,.3),0 0 20px var(--danger-glow),0 4px 20px rgba(0,0,0,.5)}
 
-  .modal-acoes{
-    position:absolute;top:16px;left:20px;z-index:20;
-    display:flex;gap:8px;
-    transition:opacity .3s ease;
-  }
-  .modal-acao{
-    width:44px;height:44px;border-radius:50%;
-    background:rgba(10,8,8,.8);
-    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-    border:1px solid var(--border-gold);
-    color:var(--gold-light);
-    display:flex;align-items:center;justify-content:center;
-    cursor:pointer;padding:0;line-height:1;
-    transition:all .3s var(--ease-luxury);
-    font-family:inherit;
-  }
+  .modal-acoes{position:absolute;top:16px;left:20px;z-index:20;display:flex;gap:8px;transition:opacity .3s ease}
+  .modal-acao{width:44px;height:44px;border-radius:50%;background:rgba(10,8,8,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--border-gold);color:var(--gold-light);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;line-height:1;transition:all .3s var(--ease-luxury);font-family:inherit}
   .modal-acao svg{width:18px;height:18px;display:block;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
   .modal-acao:hover{background:var(--gold);color:#1b1209;border-color:transparent;box-shadow:0 0 14px rgba(241,220,166,.28)}
   .modal-acao.fav.on{color:var(--danger);border-color:rgba(184,58,74,.55);background:rgba(120,25,35,.55)}
@@ -497,24 +340,16 @@
     padding:0 4px 8px;
     scrollbar-width:none;
     -ms-overflow-style:none;
-    transition:max-height .4s var(--ease-luxury);
+    transition:max-height .35s var(--ease-luxury);
   }
   .modal-info::-webkit-scrollbar{width:0;height:0;display:none}
-
-  .modal.scrolling .modal-info{max-height:50vh}
-  .modal.scrolled  .modal-info{max-height:78vh}
 
   .modal-titulo{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:1.2rem;color:var(--text);letter-spacing:-.01em}
   .modal-titulo .angle{color:var(--gold);font-family:'Inter',sans-serif;font-style:normal;font-size:.62rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-left:10px}
   .modal-desc{margin-top:6px;font-size:.82rem;color:var(--text-sec);font-weight:300;line-height:1.6}
 
   .modal-thumbs{margin-top:14px;display:flex;justify-content:center;gap:10px}
-  .thumb{
-    width:54px;height:72px;aspect-ratio:3 / 4;
-    padding:0;border-radius:10px;overflow:hidden;
-    border:1px solid var(--border);background:var(--bg-elevated);
-    cursor:pointer;opacity:.55;transition:all .3s var(--ease-luxury);position:relative;
-  }
+  .thumb{width:54px;height:72px;aspect-ratio:3 / 4;padding:0;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:var(--bg-elevated);cursor:pointer;opacity:.55;transition:all .3s var(--ease-luxury);position:relative}
   .thumb img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block}
   .thumb:hover{opacity:.9}
   .thumb[aria-current="true"]{opacity:1;border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 0 12px rgba(212,176,122,.18)}
@@ -526,7 +361,7 @@
   .modal.zoom-mode .modal-nav,
   .modal.zoom-mode .modal-acoes{opacity:0 !important;pointer-events:none !important}
   .modal.zoom-mode .modal-info{opacity:0;pointer-events:none}
-  .modal.zoom-mode .modal-stage{overflow:visible;flex:1 1 auto;height:auto;min-height:0}
+  .modal.zoom-mode .modal-stage{overflow:visible;height:auto !important}
 
   .modal-kit{margin-top:22px;padding-top:20px;border-top:1px solid var(--border)}
   .modal-kit-titulo{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:1rem;color:var(--text);margin-bottom:16px;letter-spacing:-.005em}
@@ -539,15 +374,11 @@
   .footer-mini{text-align:center;margin-top:64px;padding-top:32px;border-top:1px solid var(--border);font-size:.6rem;color:var(--text-muted);letter-spacing:.3em;text-transform:uppercase;font-weight:300;opacity:.5}
   .footer-mini .gold{color:var(--gold);opacity:1}
 
-  /* ===== RESPONSIVE DESKTOP ===== */
   @media (min-width:900px){
     .modal{padding:68px 16px 18px}
+    .modal-stage{height:66vh}
     .modal-stage img{width:min(60vw, 440px);height:min(66vh, 620px)}
-    .modal.scrolling .modal-stage{height:min(42vh, 380px)}
-    .modal.scrolling .modal-stage img{width:min(40vw, 300px);height:min(42vh, 380px)}
     .modal-info{max-height:32vh}
-    .modal.scrolling .modal-info{max-height:44vh}
-    .modal.scrolled .modal-info{max-height:64vh}
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -1431,9 +1262,7 @@ function mostrarUI(){
   modal.classList.remove("ui-oculta");
   clearTimeout(uiTimer);
   uiTimer = setTimeout(() => {
-    if (modal.classList.contains("ativo") && !zoomAtivo && !modal.classList.contains("scrolled")){
-      modal.classList.add("ui-oculta");
-    }
+    if (modal.classList.contains("ativo") && !zoomAtivo) modal.classList.add("ui-oculta");
   }, 2000);
 }
 
@@ -1515,9 +1344,8 @@ function abrirModal(ci, ai, gatilho){
   ultimoFoco = gatilho || document.activeElement;
   mostrar(ci, ai, false);
 
-  // reset do estado de scroll sempre que abre
-  modal.classList.remove("scrolled","scrolling");
-  if (modalInfo) modalInfo.scrollTop = 0;
+  // reset do progresso de scroll
+  resetScrollHero();
 
   modal.classList.add("ativo");
   modal.setAttribute("aria-hidden","false");
@@ -1529,7 +1357,8 @@ function abrirModal(ci, ai, gatilho){
 function closeModal(){
   if (!modal.classList.contains("ativo")) return;
   resetZoom();
-  modal.classList.remove("ativo","scrolled","scrolling");
+  resetScrollHero();
+  modal.classList.remove("ativo");
   modal.setAttribute("aria-hidden","true");
   document.body.style.overflow = "";
   clearTimeout(uiTimer);
@@ -1622,60 +1451,118 @@ modalStage.addEventListener("touchend", (e) => {
 }, {passive:true});
 
 /* ============================================================
-   SCROLL-DRIVEN HERO
-   imagem encolhe → some → volta ao rolar pra cima
+   SCROLL-DRIVEN HERO — interpolação contínua (sem travar)
    ============================================================ */
-(function initScrollHero(){
-  if (!modalInfo) return;
+const SCROLL_HERO = (() => {
+  if (!modalInfo || !modalStage || !imgModal) return null;
 
   let ticking = false;
-  let estado = "normal"; // normal | scrolling | scrolled
+  let rafId = null;
 
-  function calcularLimiar(){
-    // limiares adaptados ao tamanho da tela
+  const ABERTO_H = 62;    // vh da imagem quando aberta
+  const FECHADO_H = 0;    // vh quando fechada
+  const ABERTO_W = 84;    // vw da imagem quando aberta
+  const FECHADO_W = 46;   // vw quando fechada
+  const INFO_MIN = 38;    // vh de max-height do info quando aberto
+  const INFO_MAX = 78;    // vh quando fechado
+
+  function limites(){
     const h = window.innerHeight;
-    const limiarScroll  = Math.max(30, Math.round(h * 0.05)); // começa a encolher
-    const limiarScrolled = Math.max(90, Math.round(h * 0.16)); // desaparece
-    return { limiarScroll, limiarScrolled };
+    return {
+      ini: 0,
+      fim: Math.max(160, h * 0.24) // 24% da altura da tela pra completar
+    };
+  }
+
+  function smoothstep(t){
+    return t * t * (3 - 2 * t);
+  }
+
+  function aplicar(p){
+    const e = smoothstep(p);
+
+    // Altura e largura da imagem
+    const alturaVh = ABERTO_H - (ABERTO_H - FECHADO_H) * e;
+    const larguraVw = ABERTO_W - (ABERTO_W - FECHADO_W) * e;
+
+    // Opacidade só cai no último terço
+    const opacidade = e < 0.66 ? 1 : Math.max(0, 1 - (e - 0.66) / 0.34);
+
+    // Deslocamento sutil para cima
+    const deslocY = -14 * e;
+
+    // Info expande continuamente
+    const infoMax = INFO_MIN + (INFO_MAX - INFO_MIN) * e;
+
+    modalStage.style.height = alturaVh + "vh";
+    modalStage.style.opacity = opacidade;
+    modalStage.style.transform = `translateY(${deslocY}px)`;
+    modalStage.style.pointerEvents = opacidade < 0.1 ? "none" : "";
+
+    imgModal.style.width = larguraVw + "vw";
+    imgModal.style.height = alturaVh + "vh";
+    imgModal.style.opacity = opacidade;
+
+    modalInfo.style.maxHeight = infoMax + "vh";
+
+    // Esconde controles quando a imagem já sumiu
+    const esconder = opacidade < 0.05;
+    const setOp = (el) => {
+      if (!el) return;
+      el.style.opacity = esconder ? "0" : "";
+      el.style.pointerEvents = esconder ? "none" : "";
+    };
+    setOp(btnFechar);
+    setOp(modalFav);
+    setOp(modalShare);
+    setOp(btnPrev);
+    setOp(btnNext);
   }
 
   function atualizar(){
     const y = modalInfo.scrollTop;
-    const { limiarScroll, limiarScrolled } = calcularLimiar();
-
-    let novo = "normal";
-    if (y >= limiarScrolled) novo = "scrolled";
-    else if (y >= limiarScroll) novo = "scrolling";
-
-    if (novo !== estado){
-      estado = novo;
-      modal.classList.toggle("scrolling", estado === "scrolling");
-      modal.classList.toggle("scrolled",  estado === "scrolled");
-      if (estado === "scrolled") modal.classList.remove("ui-oculta");
-    }
+    const { ini, fim } = limites();
+    const p = Math.max(0, Math.min(1, (y - ini) / (fim - ini)));
+    aplicar(p);
     ticking = false;
   }
 
-  modalInfo.addEventListener("scroll", () => {
-    if (!ticking){
-      requestAnimationFrame(atualizar);
-      ticking = true;
-    }
-  }, { passive: true });
+  function agendar(){
+    if (ticking) return;
+    ticking = true;
+    rafId = requestAnimationFrame(atualizar);
+  }
 
-  // revalida em resize/orientação
-  window.addEventListener("resize", () => { if (!ticking){ requestAnimationFrame(atualizar); ticking = true; } });
+  modalInfo.addEventListener("scroll", agendar, { passive: true });
+  window.addEventListener("resize", agendar);
+  window.addEventListener("orientationchange", agendar);
 
-  // reset quando o modal fecha
-  const observer = new MutationObserver(() => {
-    if (!modal.classList.contains("ativo")){
-      estado = "normal";
-      modal.classList.remove("scrolled","scrolling");
-      if (modalInfo) modalInfo.scrollTop = 0;
-    }
-  });
-  observer.observe(modal, { attributes: true, attributeFilter: ["class"] });
+  function reset(){
+    if (rafId) cancelAnimationFrame(rafId);
+    ticking = false;
+    modalStage.style.height = "";
+    modalStage.style.opacity = "";
+    modalStage.style.transform = "";
+    modalStage.style.pointerEvents = "";
+    imgModal.style.width = "";
+    imgModal.style.height = "";
+    imgModal.style.opacity = "";
+    modalInfo.style.maxHeight = "";
+    [btnFechar, modalFav, modalShare, btnPrev, btnNext].forEach(el => {
+      if (el){ el.style.opacity = ""; el.style.pointerEvents = ""; }
+    });
+    if (modalInfo) modalInfo.scrollTop = 0;
+  }
+
+  // aplica estado inicial aberto
+  aplicar(0);
+
+  return { reset, agendar };
 })();
+
+function resetScrollHero(){
+  if (SCROLL_HERO) SCROLL_HERO.reset();
+}
 
 /* ============================================
    LOADING + INIT
