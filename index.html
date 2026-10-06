@@ -42,22 +42,23 @@
   :focus-visible{outline:none;box-shadow:var(--focus-ring)}
 
   @keyframes fadeInUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes logoZoomIn{0%{opacity:0;transform:scale(.94)}100%{opacity:1;transform:scale(1)}}
-  @keyframes logoZoomOut{0%{transform:scale(1);opacity:1}100%{transform:scale(1.06);opacity:0}}
+  @keyframes logoZoomIn{0%{opacity:0;transform:scale(.1)}100%{opacity:1;transform:scale(1)}}
+  @keyframes logoZoomOut{0%{transform:scale(1);opacity:1}100%{transform:scale(8);opacity:0}}
   @keyframes softGlowGold{0%,100%{text-shadow:0 0 4px rgba(232,213,168,.45),0 0 10px rgba(201,169,110,.25)}50%{text-shadow:0 0 8px rgba(232,213,168,.75),0 0 18px rgba(201,169,110,.4)}}
   @keyframes fadeSection{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
   @keyframes heartPop{0%{transform:scale(1)}35%{transform:scale(1.22)}100%{transform:scale(1)}}
 
-  /* ========== LOADING ========== */
-  .loading-screen{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s var(--ease-soft),visibility .8s}
+  /* ========== LOADING (substituído pelo loading completo do HairOS) ========== */
+  .loading-screen{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1.8s cubic-bezier(.4,0,.2,1),visibility 1.8s}
   .loading-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
-  .loading-logo{display:flex;flex-direction:column;align-items:center;gap:12px;animation:logoZoomIn 1.2s var(--ease-out) forwards}
-  .loading-logo.zoom-out{animation:logoZoomOut .7s var(--ease-soft) forwards}
-  .loading-brand{font-family:'Playfair Display',serif;font-size:3.6rem;font-weight:700;font-style:italic;color:var(--gold);line-height:1;letter-spacing:-.01em;text-shadow:0 0 60px var(--gold-glow)}
-  .loading-sub{font-family:'Inter',sans-serif;font-size:.68rem;font-weight:300;letter-spacing:.5em;text-transform:uppercase;color:var(--text-muted);padding-left:.5em}
-  .loading-bar{margin-top:36px;width:min(210px,64vw);height:2px;background:var(--border);border-radius:2px;overflow:hidden;transition:opacity .4s}
-  .loading-bar-inner{width:0;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width .35s ease-out}
-  .loading-percent{margin-top:14px;font-size:.62rem;color:var(--gold);opacity:.5;transition:opacity .4s;letter-spacing:.1em}
+  .loading-logo{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:700;font-style:italic;display:flex;align-items:center;gap:4px;animation:logoZoomIn 4.5s var(--ease-luxury) forwards}
+  .loading-logo.zoom-out{animation:logoZoomOut 1.5s cubic-bezier(.77,0,.175,1) forwards}
+  .loading-logo span{color:var(--gold);text-shadow:0 0 60px var(--gold-glow)}
+  .loading-logo .dot{color:var(--gold);font-size:3rem}
+  .loading-bar{margin-top:28px;width:min(210px,64vw);height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+  .loading-bar-inner{width:0;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width .1s linear}
+  .loading-text{margin-top:16px;font-size:.7rem;color:var(--text-muted);letter-spacing:.15em;text-transform:uppercase;font-weight:300;opacity:.4}
+  .loading-percent{margin-top:6px;font-size:.65rem;color:var(--gold);opacity:.6}
 
   .main-content{opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out),visibility .9s}
   .main-content.visible{opacity:1;visibility:visible;transform:translateY(0)}
@@ -491,13 +492,11 @@
 </head>
 <body>
 
-<!-- LOADING -->
-<div class="loading-screen" id="loadingScreen" role="status" aria-live="polite">
-  <div class="loading-logo" id="loadingLogo">
-    <span class="loading-brand">HairOS</span>
-    <span class="loading-sub">Cortes + Kits</span>
-  </div>
-  <div class="loading-bar" id="loadingBarContainer"><div class="loading-bar-inner" id="loadingBar"></div></div>
+<!-- LOADING (substituído pelo loading completo do HairOS) -->
+<div class="loading-screen" id="loadingScreen" role="status" aria-live="polite" aria-label="Carregando HairOS">
+  <div class="loading-logo" id="loadingLogo">Hair<span>OS</span><span class="dot">.</span></div>
+  <div class="loading-bar" id="loadingBarContainer" aria-hidden="true"><div class="loading-bar-inner" id="loadingBar"></div></div>
+  <div class="loading-text" id="loadingText">preparando elegância</div>
   <div class="loading-percent" id="loadingPercent">0%</div>
 </div>
 
@@ -1829,7 +1828,7 @@ function resetScrollHero(){
 }
 
 /* ============================================
-   LOADING + INIT
+   LOADING + INIT (substituído pelo loading completo do HairOS)
    ============================================ */
 document.addEventListener("DOMContentLoaded", function(){
   renderChips();
@@ -1840,31 +1839,41 @@ document.addEventListener("DOMContentLoaded", function(){
   const lb  = document.getElementById("loadingBar");
   const lbc = document.getElementById("loadingBarContainer");
   const lp  = document.getElementById("loadingPercent");
+  const lt  = document.getElementById("loadingText");
   const mc  = document.getElementById("mainContent");
-  const primeiras = imagensSoltas.slice(0, 6);
-  let prontas = 0, tempoMinimo = false, terminou = false;
 
-  function atualizar(){
-    const pct = Math.round((prontas / primeiras.length) * 100);
-    lb.style.width = pct + "%";
-    lp.textContent = pct + "%";
-    if (prontas >= primeiras.length && tempoMinimo) finish();
-  }
   function finish(){
-    if (terminou) return;
-    terminou = true;
-    lb.style.width = "100%"; lp.textContent = "100%";
-    lbc.style.opacity = "0"; lp.style.opacity = "0";
-    setTimeout(() => ll.classList.add("zoom-out"), 200);
-    setTimeout(() => { ls.classList.add("hidden"); mc.classList.add("visible"); document.body.classList.add("app-pronta"); }, 750);
+    if (lbc) lbc.style.opacity = "0";
+    if (lt)  lt.style.opacity  = "0";
+    if (lp)  lp.style.opacity  = "0";
+    setTimeout(() => { if (ll) ll.classList.add("zoom-out"); }, 500);
+    setTimeout(() => {
+      if (ls) ls.classList.add("hidden");
+      if (mc) mc.classList.add("visible");
+      document.body.classList.add("app-pronta");
+    }, 1800);
   }
-  primeiras.forEach(item => {
-    const im = new Image();
-    const ok = () => { prontas++; atualizar(); };
-    im.onload = ok; im.onerror = ok; im.src = item.src;
-  });
-  setTimeout(() => { tempoMinimo = true; atualizar(); }, 1100);
-  setTimeout(finish, 2500);
+
+  let v = 0;
+  const pi = setInterval(() => {
+    v++;
+    if (v > 100) v = 100;
+    if (lb) lb.style.width = v + "%";
+    if (lp) lp.textContent = v + "%";
+    if (v >= 90 && lt) lt.textContent = "inspirações prontas";
+    if (v >= 100){ clearInterval(pi); finish(); }
+  }, 45);
+
+  setTimeout(() => {
+    if (v < 100){
+      clearInterval(pi);
+      v = 100;
+      if (lb) lb.style.width = "100%";
+      if (lp) lp.textContent = "100%";
+      if (lt) lt.textContent = "inspirações prontas";
+      finish();
+    }
+  }, 8000);
 });
 </script>
 </body>
