@@ -19,6 +19,10 @@
     --border:rgba(212,176,122,.10); --border-gold:rgba(212,176,122,.28);
     --radius:14px; --transition:.4s cubic-bezier(.22,.61,.36,1);
     --ease-luxury:cubic-bezier(.23,1,.32,1);
+    --ease-out:cubic-bezier(.22,1,.36,1);
+    --ease-soft:cubic-bezier(.4,0,.2,1);
+    --tr-ui:background-color .3s var(--ease-out),border-color .3s var(--ease-out),color .3s var(--ease-out),box-shadow .3s var(--ease-out),transform .3s var(--ease-out),opacity .3s var(--ease-out);
+    --nav-space:calc(var(--header-h) + 28px + env(safe-area-inset-top,0px));
     --focus-ring:0 0 0 3px rgba(212,176,122,.5);
     --header-h:56px;
     --danger:#b83a4a;
@@ -34,49 +38,52 @@
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh;line-height:1.65;overflow-x:hidden}
-  body{padding:0 14px 60px;max-width:1600px;margin:0 auto}
+  body{padding:0 14px calc(112px + env(safe-area-inset-bottom,0px));max-width:1600px;margin:0 auto}
   :focus-visible{outline:none;box-shadow:var(--focus-ring)}
 
-  @keyframes fadeInUp{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
-  @keyframes logoZoomIn{0%{opacity:0;transform:scale(.1)}100%{opacity:1;transform:scale(1)}}
-  @keyframes logoZoomOut{0%{transform:scale(1);opacity:1}100%{transform:scale(8);opacity:0}}
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes logoZoomIn{0%{opacity:0;transform:scale(.94)}100%{opacity:1;transform:scale(1)}}
+  @keyframes logoZoomOut{0%{transform:scale(1);opacity:1}100%{transform:scale(1.06);opacity:0}}
   @keyframes softGlowGold{0%,100%{text-shadow:0 0 4px rgba(232,213,168,.45),0 0 10px rgba(201,169,110,.25)}50%{text-shadow:0 0 8px rgba(232,213,168,.75),0 0 18px rgba(201,169,110,.4)}}
-  @keyframes fadeSection{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes heartPop{0%{transform:scale(1)}40%{transform:scale(1.35)}100%{transform:scale(1)}}
+  @keyframes fadeSection{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes heartPop{0%{transform:scale(1)}35%{transform:scale(1.22)}100%{transform:scale(1)}}
 
   /* ========== LOADING ========== */
-  .loading-screen{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1s cubic-bezier(.4,0,.2,1),visibility 1s}
+  .loading-screen{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s var(--ease-soft),visibility .8s}
   .loading-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
-  .loading-logo{display:flex;flex-direction:column;align-items:center;gap:12px;animation:logoZoomIn 1.6s var(--ease-luxury) forwards}
-  .loading-logo.zoom-out{animation:logoZoomOut 1.1s cubic-bezier(.77,0,.175,1) forwards}
+  .loading-logo{display:flex;flex-direction:column;align-items:center;gap:12px;animation:logoZoomIn 1.2s var(--ease-out) forwards}
+  .loading-logo.zoom-out{animation:logoZoomOut .7s var(--ease-soft) forwards}
   .loading-brand{font-family:'Playfair Display',serif;font-size:3.6rem;font-weight:700;font-style:italic;color:var(--gold);line-height:1;letter-spacing:-.01em;text-shadow:0 0 60px var(--gold-glow)}
   .loading-sub{font-family:'Inter',sans-serif;font-size:.68rem;font-weight:300;letter-spacing:.5em;text-transform:uppercase;color:var(--text-muted);padding-left:.5em}
   .loading-bar{margin-top:36px;width:min(210px,64vw);height:2px;background:var(--border);border-radius:2px;overflow:hidden;transition:opacity .4s}
   .loading-bar-inner{width:0;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width .35s ease-out}
   .loading-percent{margin-top:14px;font-size:.62rem;color:var(--gold);opacity:.5;transition:opacity .4s;letter-spacing:.1em}
 
-  .main-content{opacity:0;visibility:hidden;transform:translateY(15px);transition:all 1s cubic-bezier(.16,1,.3,1)}
+  .main-content{opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out),visibility .9s}
   .main-content.visible{opacity:1;visibility:visible;transform:translateY(0)}
 
   /* ========== HEADER ========== */
   .topbar{
-    position:fixed;top:0;left:0;right:0;height:var(--header-h);
-    background:rgba(10,8,8,.82);
-    backdrop-filter:blur(18px) saturate(160%);
-    -webkit-backdrop-filter:blur(18px) saturate(160%);
-    border-bottom:1px solid var(--border);
+    position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);left:0;right:0;margin-inline:auto;
+    width:min(calc(100% - 28px),560px);height:var(--header-h);
+    background:rgba(26,22,18,.66);
+    backdrop-filter:blur(22px) saturate(170%);
+    -webkit-backdrop-filter:blur(22px) saturate(170%);
+    border:1px solid var(--border-gold);border-radius:999px;
     z-index:900;display:flex;align-items:center;
-    box-shadow:0 1px 0 rgba(212,176,122,.06),0 6px 18px rgba(0,0,0,.38);
+    box-shadow:0 12px 32px rgba(0,0,0,.45),0 2px 6px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,240,210,.06);
+    opacity:0;transform:translateY(-16px);
+    transition:transform .55s var(--ease-out),opacity .4s var(--ease-soft);
   }
-  .topbar-inner{width:100%;max-width:1600px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .topbar-inner{width:100%;padding:0 8px 0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 
   .brand{display:flex;align-items:baseline;gap:2px;text-decoration:none;line-height:1;cursor:pointer;user-select:none;background:none;border:none;color:inherit;font-family:inherit;padding:0}
-  .brand-h{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--gold);line-height:1;letter-spacing:-.03em;animation:softGlowGold 5s ease-in-out infinite}
+  .brand-h{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--gold);line-height:1;letter-spacing:-.03em;text-shadow:0 0 8px rgba(232,213,168,.4),0 0 18px rgba(201,169,110,.2)}
   .brand-rest{font-family:'Playfair Display',serif;font-size:1rem;font-weight:400;color:var(--text-sec);line-height:1;letter-spacing:.01em}
 
-  .menu-btn{width:40px;height:40px;border-radius:50%;background:transparent;border:1px solid var(--border-gold);color:var(--gold-light);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:all .3s var(--ease-luxury)}
+  .menu-btn{width:40px;height:40px;border-radius:50%;background:transparent;border:1px solid var(--border-gold);color:var(--gold-light);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:var(--tr-ui)}
   .menu-btn:hover{background:rgba(212,176,122,.08);border-color:var(--gold);box-shadow:var(--glow-mid)}
-  .menu-btn .bar{display:block;width:18px;height:1.5px;background:currentColor;border-radius:2px;transition:all .3s var(--ease-luxury)}
+  .menu-btn .bar{display:block;width:18px;height:1.5px;background:currentColor;border-radius:2px;transition:var(--tr-ui)}
   .menu-btn .bar + .bar{margin-top:4px}
 
   /* ========== DRAWER ========== */
@@ -92,11 +99,11 @@
   .drawer-brand .brand-h{font-size:1.5rem}
   .drawer-brand .brand-rest{font-size:.92rem}
 
-  .drawer-fechar{width:36px;height:36px;border-radius:50%;background:var(--danger-bg);border:1px solid var(--danger-border);color:var(--danger-text);cursor:pointer;font-size:1.1rem;line-height:1;display:flex;align-items:center;justify-content:center;padding:0;transition:all .3s var(--ease-luxury);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 0 0 1px rgba(184,58,74,.12),0 4px 20px rgba(0,0,0,.35)}
+  .drawer-fechar{width:36px;height:36px;border-radius:50%;background:var(--danger-bg);border:1px solid var(--danger-border);color:var(--danger-text);cursor:pointer;font-size:1.1rem;line-height:1;display:flex;align-items:center;justify-content:center;padding:0;transition:var(--tr-ui);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 0 0 1px rgba(184,58,74,.12),0 4px 20px rgba(0,0,0,.35)}
   .drawer-fechar:hover{background:rgba(150,35,48,.75);border-color:var(--danger);color:#f5c8ce;box-shadow:0 0 0 1px rgba(184,58,74,.3),0 0 18px var(--danger-glow)}
 
   .drawer-nav{display:flex;flex-direction:column;padding:16px 0}
-  .drawer-nav button{display:block;width:100%;text-align:left;padding:16px 24px;background:none;border:none;color:var(--text);font-family:'Playfair Display',serif;font-style:italic;font-size:1.15rem;font-weight:500;letter-spacing:.005em;border-bottom:1px solid var(--border);transition:all .3s var(--ease-luxury);cursor:pointer}
+  .drawer-nav button{display:block;width:100%;text-align:left;padding:16px 24px;background:none;border:none;color:var(--text);font-family:'Playfair Display',serif;font-style:italic;font-size:1.15rem;font-weight:500;letter-spacing:.005em;border-bottom:1px solid var(--border);transition:var(--tr-ui),padding-left .3s var(--ease-out);cursor:pointer}
   .drawer-nav button:last-child{border-bottom:none}
   .drawer-nav button:hover{background:rgba(212,176,122,.05);color:var(--gold);padding-left:30px}
   .drawer-nav button.ativo{color:var(--gold)}
@@ -104,28 +111,31 @@
   .drawer-footer{margin-top:auto;padding:24px;font-size:.62rem;color:var(--text-muted);letter-spacing:.25em;text-transform:uppercase;font-weight:300;opacity:.5;text-align:center}
 
   /* ========== SEÇÕES ========== */
-  .secao{display:none;animation:fadeSection .5s var(--ease-luxury)}
+  .secao{display:none;animation:fadeSection .4s var(--ease-out)}
   .secao.ativa{display:block}
 
-  .page-title{text-align:center;padding:calc(var(--header-h) + 32px) 16px 8px;margin-bottom:24px}
+  .page-title{text-align:center;padding:calc(var(--nav-space) + 8px) 16px 8px;margin-bottom:24px}
   .page-title h1{font-family:'Playfair Display',serif;font-style:italic;font-size:1.6rem;font-weight:600;color:var(--text);letter-spacing:-.015em;line-height:1.2}
   .page-title .divider{display:block;width:20px;height:1px;margin:18px auto 14px;background:var(--border-gold)}
   .page-title .sub{display:block;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted);font-weight:300;line-height:1.9}
   .page-title .sub .highlight{color:var(--gold);font-weight:400}
 
   /* ========== CHIPS EM CARROSSEL ========== */
-  .chips-carousel{position:relative;margin:0 -14px 22px;padding-top:calc(var(--header-h) + 20px);padding-bottom:8px}
+  .chips-carousel{position:relative;margin:0 -14px 22px;padding-top:var(--nav-space);padding-bottom:8px}
   .chips-carousel::before,
-  .chips-carousel::after{content:"";position:absolute;top:calc(var(--header-h) + 20px);bottom:8px;width:28px;pointer-events:none;z-index:2}
+  .chips-carousel::after{content:"";position:absolute;top:var(--nav-space);bottom:8px;width:28px;pointer-events:none;z-index:2}
   .chips-carousel::before{left:0;background:linear-gradient(90deg,var(--bg) 30%,transparent)}
   .chips-carousel::after{right:0;background:linear-gradient(270deg,var(--bg) 30%,transparent)}
 
   .chips{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;padding:0 14px}
   .chips::-webkit-scrollbar{width:0;height:0;display:none}
 
-  .chip{flex:0 0 auto;scroll-snap-align:start;padding:8px 18px;border-radius:999px;border:1px solid var(--border-gold);background:rgba(10,8,8,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--text-muted);font-size:.78rem;font-weight:500;cursor:pointer;transition:all .25s var(--ease-luxury);font-family:inherit;letter-spacing:.02em;white-space:nowrap}
-  .chip:hover{color:var(--text);border-color:var(--gold);background:rgba(212,176,122,.06)}
-  .chip[aria-pressed="true"]{background:var(--gold-grad);color:#1b1209;border-color:transparent;font-weight:700;box-shadow:0 0 14px rgba(212,176,122,.28)}
+  .chip{flex:0 0 auto;scroll-snap-align:start;position:relative;isolation:isolate;overflow:hidden;padding:8px 18px;border-radius:999px;border:1px solid var(--border-gold);background:rgba(10,8,8,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--text-muted);font-size:.78rem;font-weight:600;cursor:pointer;transition:color .3s var(--ease-out),border-color .3s var(--ease-out),box-shadow .35s var(--ease-out),transform .2s var(--ease-out);font-family:inherit;letter-spacing:.02em;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+  .chip::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--gold-grad);opacity:0;transform:scale(.9);transition:opacity .35s var(--ease-out),transform .45s var(--ease-out)}
+  .chip:active{transform:scale(.96)}
+  @media (hover:hover){.chip:hover{color:var(--text);border-color:var(--gold)}}
+  .chip[aria-pressed="true"]{color:#1b1209;border-color:transparent;box-shadow:0 0 14px rgba(212,176,122,.28)}
+  .chip[aria-pressed="true"]::before{opacity:1;transform:none}
 
   @media (min-width:900px){.chips-carousel::before,.chips-carousel::after{display:none}}
 
@@ -143,22 +153,22 @@
     background:var(--gold-grad);
     border-radius:calc(var(--radius) + 1.5px);
     box-shadow:0 0 10px rgba(212,176,122,.08);
-    transition:transform var(--transition),box-shadow var(--transition);
-    animation:fadeInUp .6s var(--ease-luxury) backwards;
+    transition:transform .5s var(--ease-out),box-shadow .5s var(--ease-out),opacity .3s var(--ease-out);-webkit-tap-highlight-color:transparent;
+    animation:fadeInUp .55s var(--ease-out) backwards;
   }
   .card:focus-visible{outline:2px solid rgba(241,220,166,.7);outline-offset:4px;box-shadow:0 0 14px rgba(212,176,122,.18)}
 
   .card .card-inner{border-radius:var(--radius);overflow:hidden;background:var(--bg-card);display:block;position:relative}
 
-  .card img{width:100%;display:block;object-fit:cover;object-position:center top;background:var(--bg-elevated);transition:transform .6s var(--ease-luxury)}
+  .card img{width:100%;display:block;object-fit:cover;object-position:center top;background:var(--bg-elevated);opacity:0;transition:opacity .7s var(--ease-out),transform .8s var(--ease-out)}
   .card .h-xs{height:150px}.card .h-sm{height:200px}.card .h-md{height:260px}.card .h-lg{height:320px}.card .h-xl{height:380px}.card .h-xxl{height:440px}
   @media (min-width:600px){.card .h-xs{height:170px}.card .h-sm{height:230px}.card .h-md{height:300px}.card .h-lg{height:370px}.card .h-xl{height:440px}.card .h-xxl{height:520px}}
 
-  .card-label{position:absolute;bottom:12px;left:50%;transform:translateX(-50%) translateY(10px);background:rgba(10,8,8,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border-gold);padding:6px 16px;border-radius:24px;white-space:nowrap;opacity:0;transition:all var(--transition);font-family:'Playfair Display',serif;font-style:italic;font-size:.78rem;font-weight:600;letter-spacing:.02em;pointer-events:none;color:var(--text);max-width:90%;overflow:hidden;text-overflow:ellipsis}
+  .card-label{position:absolute;bottom:12px;left:50%;transform:translateX(-50%) translateY(10px);background:rgba(10,8,8,.85);border:1px solid var(--border-gold);padding:6px 16px;border-radius:24px;white-space:nowrap;opacity:0;transition:var(--tr-ui);font-family:'Playfair Display',serif;font-style:italic;font-size:.78rem;font-weight:600;letter-spacing:.02em;pointer-events:none;color:var(--text);max-width:90%;overflow:hidden;text-overflow:ellipsis}
   .card-label .angle{color:var(--gold);font-family:'Inter',sans-serif;font-style:normal;font-size:.62rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-left:8px;opacity:.85}
 
   .card-actions{position:absolute;top:10px;right:10px;z-index:5;display:flex;flex-direction:column;gap:8px;opacity:0;transform:translateY(-6px);transition:opacity .3s var(--ease-luxury),transform .3s var(--ease-luxury);pointer-events:none}
-  .card-action{width:36px;height:36px;border-radius:50%;background:rgba(10,8,8,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border-gold);color:var(--gold-light);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;line-height:1;transition:all .25s var(--ease-luxury);font-family:inherit}
+  .card-action{width:36px;height:36px;border-radius:50%;background:rgba(10,8,8,.72);border:1px solid var(--border-gold);color:var(--gold-light);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;line-height:1;transition:var(--tr-ui);font-family:inherit}
   .card-action svg{width:16px;height:16px;display:block;pointer-events:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .card-action:hover{background:var(--gold);color:#1b1209;border-color:transparent;transform:scale(1.08)}
   .card-action.fav.on{color:var(--danger);border-color:rgba(184,58,74,.55);background:rgba(120,25,35,.55)}
@@ -166,14 +176,42 @@
   .card-action.fav.pop{animation:heartPop .45s ease}
 
   @media (hover:hover){
-    .card:hover,.card:focus-within{transform:translateY(-4px) scale(1.015);box-shadow:0 0 14px rgba(241,220,166,.16),0 0 26px rgba(212,176,122,.10),0 14px 28px rgba(0,0,0,.5);z-index:10}
-    .card:hover img{transform:scale(1.05)}
-    .card:hover .card-label,.card:focus-within .card-label{opacity:1;transform:translateX(-50%) translateY(0);background:rgba(10,8,8,.95);border-color:var(--gold)}
-    .card:hover .card-actions,.card:focus-within .card-actions{opacity:1;transform:translateY(0);pointer-events:auto}
+    .card:hover,
+    .card:focus-within{
+      transform:translateY(-3px);
+      box-shadow:0 0 12px rgba(241,220,166,.12),0 0 22px rgba(212,176,122,.07),0 16px 30px rgba(0,0,0,.42);
+      z-index:10
+    }
+    .card:hover img{transform:scale(1.035)}
+
+    .card:hover .card-label,
+    .card:focus-within .card-label{
+      opacity:1;
+      transform:translateX(-50%) translateY(0);
+      background:rgba(10,8,8,.95);
+      border-color:var(--gold)
+    }
+
+    .card:hover .card-actions,
+    .card:focus-within .card-actions{
+      opacity:1;
+      transform:translateY(0);
+      pointer-events:auto
+    }
   }
+
   @media (hover:none){
-    .card-label{opacity:1;transform:translateX(-50%) translateY(0);font-size:.72rem;padding:5px 12px}
+    .card-label{
+      opacity:0;
+      transform:translateX(-50%) translateY(10px);
+      font-size:.72rem;
+      padding:5px 12px;
+    }
     .card-label .angle{display:none}
+    .card.touch-ativo .card-label{
+      opacity:1;
+      transform:translateX(-50%) translateY(0);
+    }
     .card-actions{opacity:0;transform:translateY(-6px);pointer-events:none}
     .card.touch-ativo .card-actions{opacity:1;transform:translateY(0);pointer-events:auto}
     .card-action{width:32px;height:32px;background:rgba(10,8,8,.72)}
@@ -189,7 +227,7 @@
   .kit-bloco-desc{font-size:.76rem;color:var(--text-muted);font-weight:300;line-height:1.5;margin-bottom:16px}
   .kit-bloco-divider{display:block;width:20px;height:1px;background:var(--border-gold);margin-bottom:16px}
   .kit-bloco-lista{display:flex;flex-direction:column;gap:8px}
-  .kit-link{display:block;padding:12px 16px;border-radius:12px;border:1px solid var(--border);background:rgba(10,8,8,.6);text-decoration:none;transition:all .3s var(--ease-luxury);text-align:left}
+  .kit-link{display:block;padding:12px 16px;border-radius:12px;border:1px solid var(--border);background:rgba(10,8,8,.6);text-decoration:none;transition:var(--tr-ui);text-align:left}
   .kit-link:hover{background:rgba(212,176,122,.05);border-color:var(--border-gold);box-shadow:0 0 12px rgba(212,176,122,.10)}
   .kit-link .kit-nome{display:block;color:var(--gold-light);font-size:.82rem;font-weight:500;margin-bottom:3px;letter-spacing:.005em}
   .kit-link .kit-razao{display:block;color:var(--text-muted);font-size:.72rem;font-weight:300;line-height:1.5}
@@ -215,28 +253,26 @@
   .contato-form-row{display:grid;grid-template-columns:1fr;gap:12px}
   .contato-field{display:flex;flex-direction:column;gap:6px}
   .contato-field label{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
-  .contato-form input,.contato-form textarea{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:13px 16px;color:var(--text);font-size:.88rem;outline:none;transition:all var(--transition);width:100%;font-weight:300;font-family:inherit}
+  .contato-form input,.contato-form textarea{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:13px 16px;color:var(--text);font-size:.88rem;outline:none;transition:var(--tr-ui);width:100%;font-weight:300;font-family:inherit}
   .contato-form input:focus,.contato-form textarea:focus{border-color:var(--gold);box-shadow:var(--focus-ring);background:var(--bg-elevated)}
   .contato-form textarea{min-height:120px;resize:vertical}
-  .contato-form button[type="submit"]{background:var(--gold);border:none;border-radius:10px;padding:14px;color:#1b1209;font-size:.82rem;font-weight:700;cursor:pointer;letter-spacing:.08em;text-transform:uppercase;margin-top:4px;transition:all var(--transition);font-family:inherit}
+  .contato-form button[type="submit"]{background:var(--gold);border:none;border-radius:10px;padding:14px;color:#1b1209;font-size:.82rem;font-weight:700;cursor:pointer;letter-spacing:.08em;text-transform:uppercase;margin-top:4px;transition:var(--tr-ui);font-family:inherit}
   .contato-form button[type="submit"]:hover{background:var(--gold-light);outline:var(--focus-ring)}
   .contato-form button[type="submit"]:disabled{opacity:.6;cursor:not-allowed}
 
   /* ========== PIX ========== */
-  .pix-banner{background:var(--bg-card);border:1px solid var(--border-gold);border-radius:var(--radius);padding:18px 20px;display:flex;align-items:center;gap:14px;transition:all var(--transition)}
+  .pix-banner{background:var(--bg-card);border:1px solid var(--border-gold);border-radius:var(--radius);padding:18px 20px;display:flex;align-items:center;gap:14px;transition:var(--tr-ui)}
   .pix-banner:hover{border-color:var(--gold);box-shadow:0 0 18px rgba(212,176,122,.10)}
   .pix-banner .pix-emoji{font-size:1.7rem;flex-shrink:0}
   .pix-banner .pix-text{flex:1;min-width:0}
   .pix-banner .pix-text strong{font-size:.92rem;display:block;font-family:'Playfair Display',serif;font-style:italic;margin-bottom:3px;color:var(--text)}
   .pix-banner .pix-text span{font-size:.75rem;color:var(--text-muted);font-weight:300}
-  .pix-banner .pix-copy-btn{background:var(--gold);border:none;border-radius:8px;padding:9px 16px;color:#1b1209;font-size:.72rem;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;letter-spacing:.06em;text-transform:uppercase;transition:all var(--transition);font-family:inherit}
+  .pix-banner .pix-copy-btn{background:var(--gold);border:none;border-radius:8px;padding:9px 16px;color:#1b1209;font-size:.72rem;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;letter-spacing:.06em;text-transform:uppercase;transition:var(--tr-ui);font-family:inherit}
   .pix-banner .pix-copy-btn:hover{opacity:.9;transform:scale(1.03);outline:var(--focus-ring)}
 
   @media (min-width:480px){.contato-form-row{grid-template-columns:1fr 1fr}}
 
-  /* ============================================================
-     MODAL — MOBILE FIRST + SCROLL-DRIVEN HERO (contínuo)
-     ============================================================ */
+  /* ========== MODAL ========== */
   .modal{
     position:fixed;inset:0;
     display:flex;flex-direction:column;
@@ -250,7 +286,6 @@
   }
   .modal.ativo{opacity:1;visibility:visible}
 
-  /* Estágio do hero — altura controlada via JS inline */
   .modal-stage{
     position:relative;
     flex:0 0 auto;
@@ -266,31 +301,30 @@
   }
 
   .modal-stage img{
-    width:min(84vw, 400px);
+    width:auto;
     height:min(62vh, 560px);
+    max-width:84vw;
     aspect-ratio:3 / 4;
     object-fit:cover;
     object-position:center center;
     border-radius:14px;
     box-shadow:0 0 18px rgba(212,176,122,.14),0 0 40px rgba(0,0,0,.65);
-    transition:opacity .3s ease,
+    transition:opacity .35s var(--ease-luxury),
                transform .35s var(--ease-luxury),
-               width .35s var(--ease-luxury),
-               height .35s var(--ease-luxury);
+               border-radius .35s var(--ease-luxury),
+               box-shadow .35s var(--ease-luxury);
+    will-change:height,opacity,transform;
     cursor:zoom-in;-webkit-user-drag:none;transform-origin:center center;
   }
-  .modal-stage img.trocando{opacity:0}
 
-  /* ZOOM — libera restrições */
   .modal-stage img.zoom{
     cursor:grab;border-radius:0;box-shadow:none;
-    transition:transform .2s ease;
+    transition:transform .45s var(--ease-out),border-radius .45s var(--ease-out),box-shadow .45s var(--ease-out);
     max-width:none;max-height:none;
   }
   .modal-stage img.zoom.arrastando{cursor:grabbing;transition:none}
   .modal-stage.zoom-ativo{touch-action:none}
 
-  /* controles */
   .btn-circ{
     width:44px;height:44px;border-radius:50%;
     background:rgba(10,8,8,.8);
@@ -316,7 +350,7 @@
   .modal-fechar:hover{background:rgba(150,35,48,.75);border-color:var(--danger);color:#f5c8ce;transform:scale(1.08) rotate(90deg);box-shadow:0 0 0 1px rgba(184,58,74,.3),0 0 20px var(--danger-glow),0 4px 20px rgba(0,0,0,.5)}
 
   .modal-acoes{position:absolute;top:16px;left:20px;z-index:20;display:flex;gap:8px;transition:opacity .3s ease}
-  .modal-acao{width:44px;height:44px;border-radius:50%;background:rgba(10,8,8,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--border-gold);color:var(--gold-light);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;line-height:1;transition:all .3s var(--ease-luxury);font-family:inherit}
+  .modal-acao{width:44px;height:44px;border-radius:50%;background:rgba(10,8,8,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--border-gold);color:var(--gold-light);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;line-height:1;transition:var(--tr-ui);font-family:inherit}
   .modal-acao svg{width:18px;height:18px;display:block;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
   .modal-acao:hover{background:var(--gold);color:#1b1209;border-color:transparent;box-shadow:0 0 14px rgba(241,220,166,.28)}
   .modal-acao.fav.on{color:var(--danger);border-color:rgba(184,58,74,.55);background:rgba(120,25,35,.55)}
@@ -327,7 +361,6 @@
   .modal-nav.prev{left:4px}.modal-nav.next{right:4px}
   @media (min-width:700px){.modal-nav.prev{left:16px}.modal-nav.next{right:16px}}
 
-  /* ===== INFO — scroll container ===== */
   .modal-info{
     width:min(560px,100%);
     text-align:center;
@@ -340,7 +373,7 @@
     padding:0 4px 8px;
     scrollbar-width:none;
     -ms-overflow-style:none;
-    transition:max-height .35s var(--ease-luxury);
+    transition:max-height .35s var(--ease-luxury),opacity .3s var(--ease-out);
   }
   .modal-info::-webkit-scrollbar{width:0;height:0;display:none}
 
@@ -349,7 +382,7 @@
   .modal-desc{margin-top:6px;font-size:.82rem;color:var(--text-sec);font-weight:300;line-height:1.6}
 
   .modal-thumbs{margin-top:14px;display:flex;justify-content:center;gap:10px}
-  .thumb{width:54px;height:72px;aspect-ratio:3 / 4;padding:0;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:var(--bg-elevated);cursor:pointer;opacity:.55;transition:all .3s var(--ease-luxury);position:relative}
+  .thumb{width:54px;height:72px;aspect-ratio:3 / 4;padding:0;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:var(--bg-elevated);cursor:pointer;opacity:.55;transition:var(--tr-ui);position:relative}
   .thumb img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block}
   .thumb:hover{opacity:.9}
   .thumb[aria-current="true"]{opacity:1;border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 0 12px rgba(212,176,122,.18)}
@@ -376,10 +409,80 @@
 
   @media (min-width:900px){
     .modal{padding:68px 16px 18px}
-    .modal-stage{height:66vh}
-    .modal-stage img{width:min(60vw, 440px);height:min(66vh, 620px)}
     .modal-info{max-height:32vh}
   }
+
+  /* ========== DOCK ========== */
+  .dock{
+    position:fixed;left:0;right:0;margin-inline:auto;
+    bottom:calc(env(safe-area-inset-bottom,0px) + 14px);
+    width:min(calc(100% - 28px),380px);
+    display:grid;grid-template-columns:repeat(4,1fr);
+    padding:6px;border-radius:999px;--i:0;
+    background:rgba(26,22,18,.66);
+    backdrop-filter:blur(22px) saturate(170%);
+    -webkit-backdrop-filter:blur(22px) saturate(170%);
+    border:1px solid var(--border-gold);
+    box-shadow:0 12px 32px rgba(0,0,0,.45),0 2px 6px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,240,210,.06);
+    z-index:900;
+    opacity:0;transform:translateY(16px);
+    transition:transform .55s var(--ease-out),opacity .4s var(--ease-soft);
+  }
+  .dock-ind{
+    position:absolute;top:6px;bottom:6px;left:6px;
+    width:calc((100% - 12px) / 4);border-radius:999px;
+    background:rgba(212,176,122,.13);border:1px solid rgba(212,176,122,.22);
+    transform:translateX(calc(var(--i) * 100%));
+    transition:transform .55s var(--ease-out);
+    pointer-events:none;
+  }
+  .dock-btn{
+    position:relative;z-index:1;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+    height:52px;padding:0;border:none;border-radius:999px;background:none;
+    color:var(--text-muted);cursor:pointer;font-family:inherit;
+    -webkit-tap-highlight-color:transparent;
+    transition:color .3s var(--ease-out),transform .2s var(--ease-out);
+  }
+  .dock-btn svg{width:20px;height:20px;display:block;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:transform .45s var(--ease-out)}
+  .dock-btn span{font-size:.62rem;font-weight:500;letter-spacing:.04em;line-height:1}
+  .dock-btn.ativo{color:var(--gold)}
+  .dock-btn.ativo svg{transform:translateY(-1px)}
+  .dock-btn:active{transform:scale(.94)}
+  @media (hover:hover){.dock-btn:hover{color:var(--text)}.dock-btn.ativo:hover{color:var(--gold)}}
+
+  body.app-pronta .topbar,
+  body.app-pronta .dock{opacity:1;transform:none}
+  body.app-pronta.nav-escondida .topbar{opacity:0;transform:translateY(calc(-100% - 28px - env(safe-area-inset-top,0px)));pointer-events:none}
+  body.app-pronta.nav-escondida .dock{opacity:0;transform:translateY(calc(100% + 32px + env(safe-area-inset-bottom,0px)));pointer-events:none}
+
+  .card img.carregada{opacity:1}
+  .card:active{transform:scale(.985);transition-duration:.18s}
+  .card.removendo,.card.removendo:hover{opacity:0;transform:scale(.96);pointer-events:none;transition-duration:.25s}
+  #catalogo{transition:opacity .17s var(--ease-soft)}
+  #catalogo.saindo{opacity:0}
+  #catalogo.sem-anim .card{animation:none}
+
+  .menu-btn:active,.drawer-fechar:active,.modal-acao:active,.card-action:active,
+  .btn-circ:not(.modal-nav):not(.modal-fechar):active{transform:scale(.92)}
+  .modal-nav:active{transform:translateY(-50%) scale(.92)}
+  .modal-fechar:active{transform:scale(.94) rotate(90deg)}
+  .kit-link:active,.drawer-nav button:active,.pix-copy-btn:active,.contato-form button[type="submit"]:active{transform:scale(.985)}
+
+  @keyframes modalImgIn{from{opacity:0;transform:scale(.97) translateY(8px)}to{opacity:1;transform:none}}
+  @keyframes sheetIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @keyframes drawerItemIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+  .modal.ativo .modal-stage img{animation:modalImgIn .6s var(--ease-out) backwards}
+  .modal.ativo .modal-info{animation:sheetIn .6s .1s var(--ease-out) backwards}
+  .drawer.aberto .drawer-nav button{animation:drawerItemIn .5s var(--ease-out) backwards}
+  .drawer.aberto .drawer-nav button:nth-child(1){animation-delay:.10s}
+  .drawer.aberto .drawer-nav button:nth-child(2){animation-delay:.15s}
+  .drawer.aberto .drawer-nav button:nth-child(3){animation-delay:.20s}
+  .drawer.aberto .drawer-nav button:nth-child(4){animation-delay:.25s}
+
+  /* blur dos overlays do card só quando eles aparecem (hover, foco ou toque) */
+  .card:hover .card-label,.card:focus-within .card-label,.card.touch-ativo .card-label{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+  .card:hover .card-action,.card:focus-within .card-action,.card.touch-ativo .card-action{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
@@ -413,6 +516,27 @@
     </button>
   </div>
 </header>
+
+<!-- DOCK -->
+<nav class="dock" id="dock" aria-label="Navegação principal">
+  <span class="dock-ind" aria-hidden="true"></span>
+  <button type="button" class="dock-btn ativo" data-secao="cortes" aria-current="page">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+    <span>Cortes</span>
+  </button>
+  <button type="button" class="dock-btn" data-secao="kits">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    <span>Kits</span>
+  </button>
+  <button type="button" class="dock-btn" data-secao="sobre">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    <span>Sobre</span>
+  </button>
+  <button type="button" class="dock-btn" data-secao="contato">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+    <span>Contato</span>
+  </button>
+</nav>
 
 <!-- DRAWER -->
 <div class="drawer-overlay" id="drawerOverlay" hidden></div>
@@ -580,41 +704,44 @@ const ML_LINKS = {
 };
 
 const SITE_URL = "https://ponte-blush-phi.vercel.app/";
+const REDUZIDO = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* ============================================
-   DADOS
+   DADOS — 10 ESTILOS, 3 ÂNGULOS CADA
    ============================================ */
 const cortes = [
-  {id:1,nome:"Long Bob Ondulado",
-   descricao:"Bob na altura dos ombros, com ondas naturais e franja reta. Ideal para quem quer movimento e praticidade.",
+  {id:1,nome:"Velvet",
+   descricao:"Bob ondulado na altura do queixo, com franja reta desfiada — movimento suave e acabamento macio.",
    descricoes:{
-     frente:"Bob na altura dos ombros, com ondas naturais e franja reta. A franja suaviza a testa e as ondas emolduram o rosto sem esconder os traços — equilibra rostos ovais, quadrados ou em coração.",
-     lado:"De lado, o comprimento ganha vida: as ondas caem suavemente sobre os ombros e criam um movimento que acompanha o formato natural da cabeça.",
-     atras:"Por trás, o corte mantém o comprimento com ondas uniformes e um acabamento elegante que valoriza o movimento natural do cabelo."
+     frente:"Bob curto ondulado na altura do queixo, com franja reta levemente desfiada. A franja suaviza a testa e as ondas emolduram o rosto — equilibra rostos ovais e quadrados.",
+     lado:"De perfil, o comprimento na altura do queixo valoriza o maxilar e as ondas caem suavemente, criando movimento natural.",
+     atras:"Por trás, o corte mantém ondas uniformes e um acabamento macio que valoriza o movimento natural do cabelo."
    },
    kit:[
-     {nome:"Leave-In Elixir Ultime — Kérastase", razao:"Define as ondas do bob sem pesar, mantendo o movimento natural do comprimento", link:ML_LINKS.kerastase},
-     {nome:"Máscara Intensa — Joico", razao:"Hidratação profunda para as pontas onduladas não perderem forma ao longo do dia", link:ML_LINKS.joico},
+     {nome:"Leave-In Elixir Ultime — Kérastase", razao:"Define as ondas do bob sem pesar, mantendo o movimento natural", link:ML_LINKS.kerastase},
+     {nome:"Máscara Intensa — Joico", razao:"Hidratação profunda para as pontas onduladas não perderem forma", link:ML_LINKS.joico},
      {nome:"Babyliss Cerâmica — Ferramentas", razao:"Modela as ondas do bob com calor uniforme, sem danificar a fibra", link:ML_LINKS.ferramentas}
    ],
    imagens:{frente:"imagens/corte01-frente.png",lado:"imagens/corte01-lado.png",atras:"imagens/corte01-atras.png"}},
-  {id:2,nome:"Shag Repicado",
-   descricao:"Camadas longas e repicadas, textura despojada com franja. Visual moderno e fácil de manter.",
+
+  {id:2,nome:"Aurora",
+   descricao:"Shaggy lob castanho escuro com franja desfiada — camadas longas e textura despojada.",
    descricoes:{
-     frente:"Camadas longas e repicadas com franja desfiada. Cria textura e volume na medida certa — suaviza rostos alongados ou angulosos com um ar despojado e moderno.",
+     frente:"Camadas longas e repicadas com franja desfiada, em tom castanho escuro. Cria textura e volume na medida certa — suaviza rostos alongados ou angulosos com um ar moderno.",
      lado:"De perfil, as camadas se movimentam de forma irregular. As pontas repicadas dão personalidade e acompanham o formato natural da cabeça.",
      atras:"Na parte de trás, as camadas sobrepostas garantem volume controlado e um caimento naturalmente texturizado."
    },
    kit:[
      {nome:"Leave-In K-PAK — Joico", razao:"Textura leve que valoriza as camadas repicadas sem deixar duro", link:ML_LINKS.joico},
      {nome:"Shampoo Vitamino Color — L'Oréal Expert", razao:"Limpa sem tirar o volume natural das camadas desfiadas", link:ML_LINKS.expert},
-     {nome:"Escova Rotativa Mondial — Ferramentas", razao:"Dá corpo e movimento na raiz do shag sem esforço", link:ML_LINKS.ferramentas}
+     {nome:"Escova Rotativa Mondial — Ferramentas", razao:"Dá corpo e movimento na raiz do shaggy sem esforço", link:ML_LINKS.ferramentas}
    ],
    imagens:{frente:"imagens/corte02-frente.png",lado:"imagens/corte02-lado.png",atras:"imagens/corte02-atras.png"}},
-  {id:3,nome:"Pixie Bagunçado",
-   descricao:"Corte curto volumoso, textura natural e movimento. Perfeito para quem quer praticidade com estilo.",
+
+  {id:3,nome:"Pixie",
+   descricao:"Pixie cut castanho com topo volumoso e textura natural — curto e cheio de movimento.",
    descricoes:{
-     frente:"Corte curto com volume no topo e textura natural. Alonga o rosto e valoriza traços delicados sem pesar — praticidade com atitude.",
+     frente:"Corte curto com volume no topo e textura natural, em castanho médio. Alonga o rosto e valoriza traços delicados sem pesar — praticidade com atitude.",
      lado:"De lado, camadas estratégicas criam um efeito bagunçado proposital. Fácil de modelar e versátil para o dia a dia.",
      atras:"Na nuca, textura e volume mantêm o formato arredondado e moderno por todos os ângulos."
    },
@@ -624,10 +751,11 @@ const cortes = [
      {nome:"Difusor Universal — Ferramentas", razao:"Espalha o calor por igual e preserva a textura bagunçada do topo", link:ML_LINKS.ferramentas}
    ],
    imagens:{frente:"imagens/corte03-frente.png",lado:"imagens/corte03-lado.png",atras:"imagens/corte03-atras.png"}},
-  {id:4,nome:"Pixie Undercut",
-   descricao:"Laterais raspadas com topo longo e franja jogada de lado. Visual marcante e moderno.",
+
+  {id:4,nome:"Undercut",
+   descricao:"Pixie undercut castanho — laterais raspadas com topo longo e franja jogada de lado.",
    descricoes:{
-     frente:"Laterais raspadas com topo longo e franja jogada de lado. Alonga o rosto e cria contraste — marcante para rostos ovais ou quadrados.",
+     frente:"Laterais raspadas com topo longo e franja jogada de lado, em castanho escuro. Alonga o rosto e cria contraste — marcante para rostos ovais ou quadrados.",
      lado:"De perfil, a transição entre o raspado e o topo longo cria um contraste ousado e moderno.",
      atras:"Por trás, a nuca em degradê mantém a linha do undercut definida, com o topo estratégico garantindo o caimento."
    },
@@ -637,10 +765,11 @@ const cortes = [
      {nome:"Máscara Genesis — Kérastase", razao:"Fortalece a raiz para o contraste raspado × longo durar mais", link:ML_LINKS.kerastase}
    ],
    imagens:{frente:"imagens/corte04-frente.png",lado:"imagens/corte04-lado.png",atras:"imagens/corte04-atras.png"}},
-  {id:5,nome:"Bob Texturizado",
-   descricao:"Bob curto com ondas e camadas que dão volume e leveza. Clássico renovado.",
+
+  {id:5,nome:"Italian",
+   descricao:"Bob curto ondulado com mechas mel — volume e leveza com um toque clássico.",
    descricoes:{
-     frente:"Bob curto com ondas e camadas. Cria volume e leveza, com ângulos que afinam rostos redondos ou quadrados — clássico e moderno ao mesmo tempo.",
+     frente:"Bob curto com ondas e camadas, em castanho com mechas mel. Cria volume e leveza, com ângulos que afinam rostos redondos ou quadrados — clássico e moderno ao mesmo tempo.",
      lado:"De lado, a textura ondulada com camadas dá movimento e valoriza o perfil. Um bob que se mexe com você.",
      atras:"Na parte de trás, ondas texturizadas e camadas garantem leveza e um caimento perfeito."
    },
@@ -650,10 +779,25 @@ const cortes = [
      {nome:"Máscara Nutrioil — L'Oréal Expert", razao:"Nutre as camadas do bob sem perder o movimento", link:ML_LINKS.expert}
    ],
    imagens:{frente:"imagens/corte05-frente.png",lado:"imagens/corte05-lado.png",atras:"imagens/corte05-atras.png"}},
-  {id:6,nome:"Camadas Médias",
-   descricao:"Corte médio em camadas com franja cortina e muito movimento. Versátil e elegante.",
+
+  {id:6,nome:"Kitty",
+   descricao:"Long layered com mechas loiras e franja cortina — camadas longas e fluidas.",
    descricoes:{
-     frente:"Camadas médias com franja cortina. A franja abre o rosto e as camadas criam movimento — equilibra rostos alongados ou ovais com elegância.",
+     frente:"Cabelo em camadas longas com mechas loiras e franja cortina. As camadas criam movimento e as mechas iluminam o rosto — equilíbrio perfeito entre leveza e volume.",
+     lado:"De perfil, as camadas longas caem de forma fluida sobre os ombros, com mechas que dão profundidade ao comprimento.",
+     atras:"Por trás, as camadas sobrepostas garantem volume e um caimento fluido, com as mechas realçando o movimento."
+   },
+   kit:[
+     {nome:"Shampoo Vitamino Color — L'Oréal Expert", razao:"Protege as mechas loiras e mantém o tom vibrante por mais tempo", link:ML_LINKS.expert},
+     {nome:"Máscara Intensa — Joico", razao:"Hidratação profunda para as pontas longas com mechas", link:ML_LINKS.joico},
+     {nome:"Babyliss Cerâmica — Ferramentas", razao:"Modela as ondas longas com calor uniforme e sem danificar", link:ML_LINKS.ferramentas}
+   ],
+   imagens:{frente:"imagens/corte06-frente.png",lado:"imagens/corte06-lado.png",atras:"imagens/corte06-atras.png"}},
+
+  {id:7,nome:"Bixie",
+   descricao:"Bixie castanho — fusão de bob com pixie, repicado e com franja cortina.",
+   descricoes:{
+     frente:"Camadas médias com franja cortina, em castanho médio. A franja abre o rosto e as camadas criam movimento — equilibra rostos alongados ou ovais com elegância.",
      lado:"De perfil, as camadas longas e graduais dão forma e um caimento fluido, com pontas que se movimentam naturalmente.",
      atras:"Por trás, as camadas sobrepostas garantem volume e um caimento fluido, mantendo a elegância por todos os lados."
    },
@@ -662,25 +806,55 @@ const cortes = [
      {nome:"Condicionador Resistance — Kérastase", razao:"Desembaraça as camadas longas sem quebrar os fios", link:ML_LINKS.kerastase},
      {nome:"Shampoo Moisture Recovery — Joico", razao:"Hidrata da raiz às pontas para as camadas caírem fluido", link:ML_LINKS.joico}
    ],
-   imagens:{frente:"imagens/corte06-frente.png",lado:"imagens/corte06-lado.png",atras:"imagens/corte06-atras.png"}},
-  {id:7,nome:"Short Shag",
-   descricao:"Shag curto com franja desfiada e camadas texturizadas. Estilo despojado e atual.",
+   imagens:{frente:"imagens/corte07-frente.png",lado:"imagens/corte07-lado.png",atras:"imagens/corte07-atras.png"}},
+
+  {id:8,nome:"Butterfly",
+   descricao:"Cabelo longo em camadas com ondas — efeito borboleta, fluido e sofisticado.",
    descricoes:{
-     frente:"Shag curto com franja desfiada e camadas texturizadas. Cria textura e volume — valoriza rostos finos ou delicados com atitude.",
-     lado:"De lado, as camadas curtas e repicadas dão volume e movimento, com um ar despojado e autêntico.",
-     atras:"Na nuca, camadas texturizadas e pontas desfiadas mantêm o estilo solto e cheio de personalidade."
+     frente:"Cabelo longo em camadas com ondas naturais, em castanho com luzes. Cria movimento e volume na medida — ilumina rostos ovais ou quadrados com fluidez.",
+     lado:"De perfil, as camadas longas dão forma e um caimento fluido, com ondas que acompanham o movimento natural do corpo.",
+     atras:"Por trás, as camadas sobrepostas garantem volume e um caimento fluido, mantendo a elegância do comprimento."
    },
    kit:[
-     {nome:"Máscara Intensa — Joico", razao:"Texturiza o shag curto e destaca as pontas desfiadas", link:ML_LINKS.joico},
-     {nome:"Sérum Pro Longer — L'Oréal Expert", razao:"Dá brilho e controla o frizz das camadas curtas", link:ML_LINKS.expert},
-     {nome:"Escova de Cerdas Naturais — Ferramentas", razao:"Finaliza o topo com volume natural e sem eletricidade", link:ML_LINKS.ferramentas}
+     {nome:"Leave-In Elixir Ultime — Kérastase", razao:"Define as ondas longas sem pesar no comprimento", link:ML_LINKS.kerastase},
+     {nome:"Máscara Intensa — Joico", razao:"Hidratação profunda para as pontas longas não quebrarem", link:ML_LINKS.joico},
+     {nome:"Babyliss Cerâmica — Ferramentas", razao:"Modela as ondas longas com calor uniforme e sem danificar", link:ML_LINKS.ferramentas}
    ],
-   imagens:{frente:"imagens/corte07-frente.png",lado:"imagens/corte07-lado.png",atras:"imagens/corte07-atras.png"}}
+   imagens:{frente:"imagens/corte08-frente.png",lado:"imagens/corte08-lado.png",atras:"imagens/corte08-atras.png"}},
+
+  {id:9,nome:"Blunt",
+   descricao:"Long bob liso com mechas — corte reto, elegante e moderno.",
+   descricoes:{
+     frente:"Bob liso com mechas e franja lateral, em castanho. Elegante e moderno, valoriza rostos ovais ou alongados com um caimento perfeito.",
+     lado:"De perfil, o corte liso mantém um caimento perfeito e as mechas dão profundidade ao visual.",
+     atras:"Por trás, o corte liso com mechas mantém um acabamento elegante e alinhado."
+   },
+   kit:[
+     {nome:"Shampoo Vitamino Color — L'Oréal Expert", razao:"Protege as mechas e mantém o tom vibrante por mais tempo", link:ML_LINKS.expert},
+     {nome:"Condicionador Resistance — Kérastase", razao:"Desembaraça e dá brilho ao comprimento liso", link:ML_LINKS.kerastase},
+     {nome:"Escova Térmica Evas — Ferramentas", razao:"Modela o bob liso com acabamento profissional", link:ML_LINKS.ferramentas}
+   ],
+   imagens:{frente:"imagens/corte09-frente.png",lado:"imagens/corte09-lado.png",atras:"imagens/corte09-atras.png"}},
+
+  {id:10,nome:"Nirvana",
+   descricao:"Long bob ondulado com franja lateral e mechas acobreadas — textura e movimento.",
+   descricoes:{
+     frente:"Bob ondulado com franja lateral e mechas acobreadas. A franja lateral alonga o rosto e as ondas dão movimento — equilibra rostos redondos ou quadrados.",
+     lado:"De perfil, as ondas caem suavemente sobre os ombros e criam um movimento natural que acompanha o formato da cabeça.",
+     atras:"Por trás, o corte mantém o comprimento com ondas uniformes e um acabamento elegante que valoriza o movimento."
+   },
+   kit:[
+     {nome:"Leave-In Elixir Ultime — Kérastase", razao:"Define as ondas do bob sem pesar", link:ML_LINKS.kerastase},
+     {nome:"Máscara Nutrioil — L'Oréal Expert", razao:"Nutre as camadas do bob sem perder o movimento", link:ML_LINKS.expert},
+     {nome:"Babyliss Cerâmica — Ferramentas", razao:"Modela as ondas do bob com calor uniforme", link:ML_LINKS.ferramentas}
+   ],
+   imagens:{frente:"imagens/corte10-frente.png",lado:"imagens/corte10-lado.png",atras:"imagens/corte10-atras.png"}}
 ];
 
 const ORDEM_ANGULOS = ['frente','lado','atras'];
 const ALTURAS = ['h-md','h-lg','h-sm','h-xl','h-xxl','h-md','h-lg','h-sm','h-xl','h-md',
-                 'h-lg','h-xxl','h-sm','h-md','h-xl','h-lg','h-sm','h-md','h-xxl','h-lg','h-md'];
+                 'h-lg','h-xxl','h-sm','h-md','h-xl','h-lg','h-sm','h-md','h-xxl','h-lg','h-md',
+                 'h-xl','h-sm','h-lg','h-md','h-xxl','h-sm','h-lg','h-md','h-xl'];
 const ANGULOS = {frente:{label:'Frente'},lado:{label:'Lado'},atras:{label:'Atrás'}};
 
 const FALLBACK = 'data:image/svg+xml,' + encodeURIComponent(
@@ -729,34 +903,54 @@ const FILTROS = [
 ];
 function classificar(corte){
   const n = corte.nome.toLowerCase();
-  if (/pixie|bob texturizado|short shag/.test(n)) return "curtos";
-  if (/long bob|camadas m|shag repicado/.test(n)) return "medios";
-  return "longos";
+  if (/pixie|undercut|bixie/.test(n)) return "curtos";
+  if (/velvet|aurora|italian|blunt|nirvana/.test(n)) return "medios";
+  return "longos"; /* kitty e butterfly */
 }
 
 /* ============================================
    CHIPS
    ============================================ */
+function rotuloChip(f){
+  return f.label + (f.id === "favoritos" && favoritos.length ? " · " + favoritos.length : "");
+}
 function renderChips(){
   const box = document.getElementById("chips");
   if (!box) return;
-  box.innerHTML = "";
-  FILTROS.forEach(f => {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "chip";
-    b.textContent = f.label + (f.id === "favoritos" && favoritos.length ? " · " + favoritos.length : "");
-    b.setAttribute("aria-pressed", f.id === filtroAtivo ? "true" : "false");
-    b.addEventListener("click", () => {
-      filtroAtivo = f.id;
-      renderChips();
-      renderCatalogo();
+  if (!box.children.length){
+    FILTROS.forEach(f => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip";
+      b.addEventListener("click", () => {
+        if (filtroAtivo === f.id) return;
+        filtroAtivo = f.id;
+        renderChips();
+        trocarCatalogo();
+        b.scrollIntoView({behavior: REDUZIDO ? "auto" : "smooth", block:"nearest", inline:"center"});
+      });
+      box.appendChild(b);
     });
-    box.appendChild(b);
-    if (f.id === filtroAtivo){
-      setTimeout(() => b.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"}), 60);
-    }
+  }
+  FILTROS.forEach((f, i) => {
+    const b = box.children[i];
+    const t = rotuloChip(f);
+    if (b.textContent !== t) b.textContent = t;
+    b.setAttribute("aria-pressed", f.id === filtroAtivo ? "true" : "false");
   });
+}
+
+let trocaCatalogoTimer = null;
+function trocarCatalogo(){
+  const box = document.getElementById("catalogo");
+  if (!box) return;
+  clearTimeout(trocaCatalogoTimer);
+  if (REDUZIDO){ renderCatalogo(); return; }
+  box.classList.add("saindo");
+  trocaCatalogoTimer = setTimeout(() => {
+    renderCatalogo();
+    requestAnimationFrame(() => box.classList.remove("saindo"));
+  }, 170);
 }
 
 /* ============================================
@@ -777,10 +971,11 @@ function svgShare(){
   return '<svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';
 }
 
-function renderCatalogo(){
+function renderCatalogo(animar = true){
   const box = document.getElementById("catalogo");
   if (!box) return;
   box.innerHTML = "";
+  box.classList.toggle("sem-anim", !animar);
 
   let lista = imagensSoltas.slice();
   if (filtroAtivo === "favoritos"){
@@ -812,15 +1007,18 @@ function renderCatalogo(){
     card.tabIndex = 0;
     card.setAttribute("role", "button");
     card.setAttribute("aria-label", corte.nome + " - " + rotulo);
-    card.style.animationDelay = (idx * 0.04) + "s";
+    card.style.animationDelay = Math.min(idx * 0.035, 0.45) + "s";
+    card.dataset.corte = corte.id;
 
     const img = document.createElement("img");
     img.className = item.altura;
-    img.src = item.src;
+    img.addEventListener("load", () => img.classList.add("carregada"));
     img.alt = corte.nome + " - " + rotulo;
     img.loading = idx < 6 ? "eager" : "lazy";
     img.decoding = "async";
     aplicarFallback(img);
+    img.src = item.src;
+    if (img.complete && img.naturalWidth) img.classList.add("carregada");
 
     const label = document.createElement("div");
     label.className = "card-label";
@@ -848,7 +1046,12 @@ function renderCatalogo(){
       setTimeout(() => bFav.classList.remove("pop"), 500);
       showToast(nowFav ? "Adicionado aos favoritos ♥" : "Removido dos favoritos");
       renderChips();
-      if (filtroAtivo === "favoritos") renderCatalogo();
+      if (filtroAtivo === "favoritos"){
+        if (!nowFav){
+          document.querySelectorAll('#catalogo .card[data-corte="' + corte.id + '"]').forEach(c => c.classList.add("removendo"));
+          setTimeout(() => renderCatalogo(false), 280);
+        } else renderCatalogo(false);
+      }
     });
 
     const bShare = document.createElement("button");
@@ -964,13 +1167,56 @@ cortes.forEach(corte => {
    ============================================ */
 const secoes = document.querySelectorAll(".secao");
 const navBtns = document.querySelectorAll(".drawer-nav button");
+const dock = document.getElementById("dock");
+const dockBtns = dock.querySelectorAll(".dock-btn");
+const ORDEM_SECOES = ["cortes","kits","sobre","contato"];
+
 function irParaSecao(nome){
+  const atual = document.querySelector(".secao.ativa");
+  if (atual && atual.id === "secao-" + nome){
+    window.scrollTo({top:0, behavior: REDUZIDO ? "auto" : "smooth"});
+    return;
+  }
   secoes.forEach(s => s.classList.toggle("ativa", s.id === "secao-" + nome));
   navBtns.forEach(b => b.classList.toggle("ativo", b.dataset.secao === nome));
-  window.scrollTo({top:0, behavior:"smooth"});
+  dockBtns.forEach(b => {
+    const on = b.dataset.secao === nome;
+    b.classList.toggle("ativo", on);
+    if (on) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current");
+  });
+  dock.style.setProperty("--i", Math.max(0, ORDEM_SECOES.indexOf(nome)));
+  document.body.classList.remove("nav-escondida");
+  window.scrollTo({top:0, behavior:"auto"});
 }
 navBtns.forEach(btn => btn.addEventListener("click", () => { irParaSecao(btn.dataset.secao); fecharDrawer(); }));
-document.getElementById("brandHome").addEventListener("click", () => { irParaSecao("cortes"); window.scrollTo({top:0, behavior:"smooth"}); });
+dockBtns.forEach(btn => btn.addEventListener("click", () => irParaSecao(btn.dataset.secao)));
+document.getElementById("brandHome").addEventListener("click", () => irParaSecao("cortes"));
+
+(function initNavAuto(){
+  let ultimoY = window.scrollY, acumulado = 0, agendado = false;
+  const body = document.body;
+  function checar(){
+    agendado = false;
+    const y = Math.max(0, window.scrollY);
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const dy = y - ultimoY;
+    ultimoY = y;
+    if (y < 80 || y > max - 80){
+      body.classList.remove("nav-escondida");
+      acumulado = 0;
+      return;
+    }
+    acumulado = (Math.sign(dy) === Math.sign(acumulado)) ? acumulado + dy : dy;
+    if (acumulado > 14) body.classList.add("nav-escondida");
+    else if (acumulado < -8) body.classList.remove("nav-escondida");
+  }
+  window.addEventListener("scroll", () => {
+    if (!agendado){ agendado = true; requestAnimationFrame(checar); }
+  }, { passive: true });
+  document.addEventListener("focusin", (e) => {
+    if (e.target.closest && e.target.closest(".topbar, .dock")) body.classList.remove("nav-escondida");
+  });
+})();
 
 /* ============================================
    DRAWER
@@ -1006,7 +1252,7 @@ function showToast(msg){
   if (!t){
     t = document.createElement("div");
     t.id = "toastHairos";
-    t.style.cssText = "position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(20px);" +
+    t.style.cssText = "position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 96px);transform:translateX(-50%) translateY(20px);" +
       "background:rgba(10,8,8,.95);backdrop-filter:blur(12px);border:1px solid rgba(212,176,122,.4);" +
       "color:#ecdcb0;padding:11px 22px;border-radius:30px;font:500 .8rem 'Inter',sans-serif;" +
       "letter-spacing:.02em;opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.23,1,.32,1);" +
@@ -1145,7 +1391,6 @@ const modalShare  = document.getElementById("modalShare");
 
 let corteAtual = 0, anguloAtual = 0, ultimoFoco = null;
 
-/* --- ZOOM + PAN --- */
 let zoomAtivo = false;
 let panX = 0, panY = 0;
 let panStartX = 0, panStartY = 0, panOrigX = 0, panOrigY = 0, arrastandoImg = false;
@@ -1153,6 +1398,7 @@ let panStartX = 0, panStartY = 0, panOrigX = 0, panOrigY = 0, arrastandoImg = fa
 const ZOOM_DESEJADO_MOBILE  = 1.7;
 const ZOOM_DESEJADO_DESKTOP = 2.2;
 const isMobile = () => window.matchMedia("(max-width: 640px)").matches;
+const ZOOM_TRANS = "transform .45s cubic-bezier(.22,1,.36,1),border-radius .45s cubic-bezier(.22,1,.36,1),box-shadow .45s cubic-bezier(.22,1,.36,1)";
 
 function getZoomScale(){
   const baseW = imgModal.offsetWidth  || 1;
@@ -1182,7 +1428,7 @@ function toggleZoom(){
     modalStage.classList.add("zoom-ativo");
     panX = 0; panY = 0;
     imgModal.style.transform = `scale(${s})`;
-    imgModal.style.transition = "transform .25s ease";
+    imgModal.style.transition = ZOOM_TRANS;
   } else {
     imgModal.classList.remove("zoom");
     modal.classList.remove("zoom-mode");
@@ -1246,7 +1492,7 @@ function endPan(){
   if (!arrastandoImg) return;
   arrastandoImg = false;
   imgModal.classList.remove("arrastando");
-  imgModal.style.transition = "transform .25s ease";
+  imgModal.style.transition = "transform .3s cubic-bezier(.22,1,.36,1)";
 }
 
 window.addEventListener("resize", () => {
@@ -1276,23 +1522,54 @@ function atualizarBotaoFavModal(){
   modalFav.setAttribute("aria-label", fav ? "Remover dos favoritos" : "Adicionar aos favoritos");
 }
 
+let trocaToken = 0;
+function precarregar(src){
+  return new Promise(resolve => {
+    const i = new Image();
+    const fim = () => resolve();
+    i.onload = fim; i.onerror = fim;
+    i.src = src;
+    setTimeout(fim, 500);
+  });
+}
+async function trocarImagemAnimada(src, alt, dir){
+  const token = ++trocaToken;
+  imgModal.getAnimations().forEach(a => a.cancel());
+  const sai = imgModal.animate(
+    [{opacity:1, transform:"translateX(0)"}, {opacity:0, transform:"translateX(" + (-dir * 12) + "px)"}],
+    {duration:160, easing:"cubic-bezier(.4,0,1,1)", fill:"forwards"}
+  );
+  try { await sai.finished; } catch(e){ return; }
+  await precarregar(src);
+  if (token !== trocaToken) return;
+  imgModal.src = src;
+  imgModal.alt = alt;
+  sai.cancel();
+  imgModal.animate(
+    [{opacity:0, transform:"translateX(" + (dir * 12) + "px)"}, {opacity:1, transform:"translateX(0)"}],
+    {duration:340, easing:"cubic-bezier(.22,1,.36,1)"}
+  );
+}
+
 function mostrar(ci, ai, animar){
   resetZoom();
+  const anguloAnterior = anguloAtual;
   corteAtual = ci;
   anguloAtual = (ai + ORDEM_ANGULOS.length) % ORDEM_ANGULOS.length;
   const corte = cortes[corteAtual];
   const angulo = ORDEM_ANGULOS[anguloAtual];
   const rotulo = ANGULOS[angulo].label;
 
-  const trocar = () => {
-    imgModal.src = corte.imagens[angulo];
-    imgModal.alt = corte.nome + " - " + rotulo;
-    imgModal.classList.remove("trocando");
-  };
-  if (animar){
-    imgModal.classList.add("trocando");
-    setTimeout(trocar, 160);
-  } else trocar();
+  const novoSrc = corte.imagens[angulo];
+  const novoAlt = corte.nome + " - " + rotulo;
+  if (animar && !REDUZIDO && imgModal.animate){
+    trocarImagemAnimada(novoSrc, novoAlt, ai >= anguloAnterior ? 1 : -1);
+  } else {
+    trocaToken++;
+    if (imgModal.getAnimations) imgModal.getAnimations().forEach(a => a.cancel());
+    imgModal.src = novoSrc;
+    imgModal.alt = novoAlt;
+  }
 
   modalTitulo.textContent = corte.nome;
   const tag = document.createElement("span");
@@ -1344,7 +1621,6 @@ function abrirModal(ci, ai, gatilho){
   ultimoFoco = gatilho || document.activeElement;
   mostrar(ci, ai, false);
 
-  // reset do progresso de scroll
   resetScrollHero();
 
   modal.classList.add("ativo");
@@ -1381,7 +1657,7 @@ if (modalFav){
     setTimeout(() => modalFav.classList.remove("pop"), 500);
     showToast(nowFav ? "Adicionado aos favoritos ♥" : "Removido dos favoritos");
     renderChips();
-    renderCatalogo();
+    renderCatalogo(false);
   });
 }
 if (modalShare){
@@ -1451,47 +1727,37 @@ modalStage.addEventListener("touchend", (e) => {
 }, {passive:true});
 
 /* ============================================================
-   SCROLL-DRIVEN HERO — interpolação contínua (sem travar)
+   SCROLL-DRIVEN HERO
    ============================================================ */
 const SCROLL_HERO = (() => {
   if (!modalInfo || !modalStage || !imgModal) return null;
 
   let ticking = false;
   let rafId = null;
+  let ultimoAplicado = -1;
 
-  const ABERTO_H = 62;    // vh da imagem quando aberta
-  const FECHADO_H = 0;    // vh quando fechada
-  const ABERTO_W = 84;    // vw da imagem quando aberta
-  const FECHADO_W = 46;   // vw quando fechada
-  const INFO_MIN = 38;    // vh de max-height do info quando aberto
-  const INFO_MAX = 78;    // vh quando fechado
+  const ABERTO_H  = 62;
+  const FECHADO_H = 0;
+  const INFO_MIN  = 38;
+  const INFO_MAX  = 78;
 
   function limites(){
     const h = window.innerHeight;
-    return {
-      ini: 0,
-      fim: Math.max(160, h * 0.24) // 24% da altura da tela pra completar
-    };
+    return { ini: 0, fim: Math.max(160, h * 0.24) };
   }
 
   function smoothstep(t){
-    return t * t * (3 - 2 * t);
+    return t * t * t * (t * (t * 6 - 15) + 10);
   }
 
   function aplicar(p){
+    if (Math.abs(p - ultimoAplicado) < 0.0015) return;
+    ultimoAplicado = p;
+
     const e = smoothstep(p);
-
-    // Altura e largura da imagem
     const alturaVh = ABERTO_H - (ABERTO_H - FECHADO_H) * e;
-    const larguraVw = ABERTO_W - (ABERTO_W - FECHADO_W) * e;
-
-    // Opacidade só cai no último terço
     const opacidade = e < 0.66 ? 1 : Math.max(0, 1 - (e - 0.66) / 0.34);
-
-    // Deslocamento sutil para cima
     const deslocY = -14 * e;
-
-    // Info expande continuamente
     const infoMax = INFO_MIN + (INFO_MAX - INFO_MIN) * e;
 
     modalStage.style.height = alturaVh + "vh";
@@ -1499,13 +1765,11 @@ const SCROLL_HERO = (() => {
     modalStage.style.transform = `translateY(${deslocY}px)`;
     modalStage.style.pointerEvents = opacidade < 0.1 ? "none" : "";
 
-    imgModal.style.width = larguraVw + "vw";
     imgModal.style.height = alturaVh + "vh";
     imgModal.style.opacity = opacidade;
 
     modalInfo.style.maxHeight = infoMax + "vh";
 
-    // Esconde controles quando a imagem já sumiu
     const esconder = opacidade < 0.05;
     const setOp = (el) => {
       if (!el) return;
@@ -1540,11 +1804,11 @@ const SCROLL_HERO = (() => {
   function reset(){
     if (rafId) cancelAnimationFrame(rafId);
     ticking = false;
+    ultimoAplicado = -1;
     modalStage.style.height = "";
     modalStage.style.opacity = "";
     modalStage.style.transform = "";
     modalStage.style.pointerEvents = "";
-    imgModal.style.width = "";
     imgModal.style.height = "";
     imgModal.style.opacity = "";
     modalInfo.style.maxHeight = "";
@@ -1552,9 +1816,9 @@ const SCROLL_HERO = (() => {
       if (el){ el.style.opacity = ""; el.style.pointerEvents = ""; }
     });
     if (modalInfo) modalInfo.scrollTop = 0;
+    aplicar(0);
   }
 
-  // aplica estado inicial aberto
   aplicar(0);
 
   return { reset, agendar };
@@ -1591,16 +1855,16 @@ document.addEventListener("DOMContentLoaded", function(){
     terminou = true;
     lb.style.width = "100%"; lp.textContent = "100%";
     lbc.style.opacity = "0"; lp.style.opacity = "0";
-    setTimeout(() => ll.classList.add("zoom-out"), 300);
-    setTimeout(() => { ls.classList.add("hidden"); mc.classList.add("visible"); }, 1200);
+    setTimeout(() => ll.classList.add("zoom-out"), 200);
+    setTimeout(() => { ls.classList.add("hidden"); mc.classList.add("visible"); document.body.classList.add("app-pronta"); }, 750);
   }
   primeiras.forEach(item => {
     const im = new Image();
     const ok = () => { prontas++; atualizar(); };
     im.onload = ok; im.onerror = ok; im.src = item.src;
   });
-  setTimeout(() => { tempoMinimo = true; atualizar(); }, 1400);
-  setTimeout(finish, 4000);
+  setTimeout(() => { tempoMinimo = true; atualizar(); }, 1100);
+  setTimeout(finish, 2500);
 });
 </script>
 </body>
