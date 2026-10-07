@@ -48,7 +48,7 @@
   @keyframes fadeSection{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
   @keyframes heartPop{0%{transform:scale(1)}35%{transform:scale(1.22)}100%{transform:scale(1)}}
 
-  /* ========== LOADING (substituído pelo loading completo do HairOS) ========== */
+  /* ========== LOADING ========== */
   .loading-screen{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1.8s cubic-bezier(.4,0,.2,1),visibility 1.8s}
   .loading-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
   .loading-logo{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:700;font-style:italic;display:flex;align-items:center;gap:4px;animation:logoZoomIn 4.5s var(--ease-luxury) forwards}
@@ -278,27 +278,42 @@
     position:fixed;inset:0;
     display:flex;flex-direction:column;
     align-items:center;justify-content:flex-start;
-    gap:14px;
+    gap:0;
     padding:calc(var(--header-h) + 12px) 16px calc(env(safe-area-inset-bottom,0) + 18px);
     background:rgba(10,8,8,.98);
     backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
     z-index:1000;opacity:0;visibility:hidden;
     transition:opacity .4s ease,visibility .4s;
+    overflow-y:auto;
+    overflow-x:hidden;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior:contain;
   }
   .modal.ativo{opacity:1;visibility:visible}
+  .modal::-webkit-scrollbar{width:0;height:0;display:none}
+  .modal{scrollbar-width:none;-ms-overflow-style:none}
 
   .modal-stage{
     position:relative;
     flex:0 0 auto;
     width:100%;
+    max-height:62vh;
     height:62vh;
     display:flex;
     align-items:center;
     justify-content:center;
     touch-action:pan-y;
     overflow:hidden;
-    transition:opacity .3s ease,transform .3s var(--ease-luxury),height .35s var(--ease-luxury);
-    will-change:height,opacity,transform;
+    transition:max-height .5s var(--ease-out), opacity .35s var(--ease-out), margin .4s var(--ease-out);
+    will-change:max-height,opacity;
+    transform-origin:center top;
+  }
+  .modal-stage.recolhido{
+    max-height:0;
+    height:0;
+    opacity:0;
+    margin:0;
+    pointer-events:none;
   }
 
   .modal-stage img{
@@ -314,7 +329,7 @@
                transform .35s var(--ease-luxury),
                border-radius .35s var(--ease-luxury),
                box-shadow .35s var(--ease-luxury);
-    will-change:height,opacity,transform;
+    will-change:opacity,transform;
     cursor:zoom-in;-webkit-user-drag:none;transform-origin:center center;
   }
 
@@ -342,7 +357,7 @@
   .btn-circ svg{width:18px;height:18px;display:block;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
 
   .modal-fechar{
-    position:absolute;top:16px;right:20px;
+    position:fixed;top:calc(env(safe-area-inset-top,0px) + 16px);right:20px;
     background:var(--danger-bg);border-color:var(--danger-border);color:var(--danger-text);
     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     box-shadow:0 0 0 1px rgba(184,58,74,.12),0 4px 20px rgba(0,0,0,.4);
@@ -350,7 +365,7 @@
   }
   .modal-fechar:hover{background:rgba(150,35,48,.75);border-color:var(--danger);color:#f5c8ce;transform:scale(1.08) rotate(90deg);box-shadow:0 0 0 1px rgba(184,58,74,.3),0 0 20px var(--danger-glow),0 4px 20px rgba(0,0,0,.5)}
 
-  .modal-acoes{position:absolute;top:16px;left:20px;z-index:20;display:flex;gap:8px;transition:opacity .3s ease}
+  .modal-acoes{position:fixed;top:calc(env(safe-area-inset-top,0px) + 16px);left:20px;z-index:20;display:flex;gap:8px;transition:opacity .3s ease}
   .modal-acao{width:44px;height:44px;border-radius:50%;background:rgba(10,8,8,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--border-gold);color:var(--gold-light);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;line-height:1;transition:var(--tr-ui);font-family:inherit}
   .modal-acao svg{width:18px;height:18px;display:block;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
   .modal-acao:hover{background:var(--gold);color:#1b1209;border-color:transparent;box-shadow:0 0 14px rgba(241,220,166,.28)}
@@ -365,18 +380,9 @@
   .modal-info{
     width:min(560px,100%);
     text-align:center;
-    flex:1 1 auto;
-    min-height:0;
-    max-height:38vh;
-    overflow-y:auto;
-    overscroll-behavior:contain;
-    -webkit-overflow-scrolling:touch;
-    padding:0 4px 8px;
-    scrollbar-width:none;
-    -ms-overflow-style:none;
-    transition:max-height .35s var(--ease-luxury),opacity .3s var(--ease-out);
+    padding:0 4px 60px;
+    margin-top:14px;
   }
-  .modal-info::-webkit-scrollbar{width:0;height:0;display:none}
 
   .modal-titulo{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:1.2rem;color:var(--text);letter-spacing:-.01em}
   .modal-titulo .angle{color:var(--gold);font-family:'Inter',sans-serif;font-style:normal;font-size:.62rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-left:10px}
@@ -389,13 +395,10 @@
   .thumb[aria-current="true"]{opacity:1;border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 0 12px rgba(212,176,122,.18)}
   [hidden]{display:none !important}
 
-  .modal.ui-oculta .modal-fechar,
-  .modal.ui-oculta .modal-nav,
-  .modal.ui-oculta .modal-acoes{opacity:0;pointer-events:none}
   .modal.zoom-mode .modal-nav,
   .modal.zoom-mode .modal-acoes{opacity:0 !important;pointer-events:none !important}
   .modal.zoom-mode .modal-info{opacity:0;pointer-events:none}
-  .modal.zoom-mode .modal-stage{overflow:visible;height:auto !important}
+  .modal.zoom-mode .modal-stage{overflow:visible;max-height:none !important;height:auto !important}
 
   .modal-kit{margin-top:22px;padding-top:20px;border-top:1px solid var(--border)}
   .modal-kit-titulo{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:1rem;color:var(--text);margin-bottom:16px;letter-spacing:-.005em}
@@ -409,8 +412,7 @@
   .footer-mini .gold{color:var(--gold);opacity:1}
 
   @media (min-width:900px){
-    .modal{padding:68px 16px 18px}
-    .modal-info{max-height:32vh}
+    .modal{padding:68px 16px 40px}
   }
 
   /* ========== DOCK ========== */
@@ -481,7 +483,6 @@
   .drawer.aberto .drawer-nav button:nth-child(3){animation-delay:.20s}
   .drawer.aberto .drawer-nav button:nth-child(4){animation-delay:.25s}
 
-  /* blur dos overlays do card só quando eles aparecem (hover, foco ou toque) */
   .card:hover .card-label,.card:focus-within .card-label,.card.touch-ativo .card-label{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
   .card:hover .card-action,.card:focus-within .card-action,.card.touch-ativo .card-action{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 
@@ -492,7 +493,7 @@
 </head>
 <body>
 
-<!-- LOADING (substituído pelo loading completo do HairOS) -->
+<!-- LOADING -->
 <div class="loading-screen" id="loadingScreen" role="status" aria-live="polite" aria-label="Carregando HairOS">
   <div class="loading-logo" id="loadingLogo">Hair<span>OS</span><span class="dot">.</span></div>
   <div class="loading-bar" id="loadingBarContainer" aria-hidden="true"><div class="loading-bar-inner" id="loadingBar"></div></div>
@@ -702,7 +703,7 @@ const ML_LINKS = {
   ferramentas: "https://meli.la/2H5F4mn"
 };
 
-const SITE_URL = "https://ponte-blush-phi.vercel.app/";
+const SITE_URL = "https://hairosvitrine.vercel.app/";
 const REDUZIDO = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* ============================================
@@ -1726,67 +1727,52 @@ modalStage.addEventListener("touchend", (e) => {
 }, {passive:true});
 
 /* ============================================================
-   SCROLL-DRIVEN HERO
+   SCROLL-DRIVEN HERO — FINAL (ocupa a tela toda)
+   - Imagem some com fade + scale + blur
+   - Stage colapsa (max-height 62vh → 0) liberando espaço
+   - Conteúdo sobe e ocupa a tela toda
+   - Botões sempre visíveis
    ============================================================ */
 const SCROLL_HERO = (() => {
-  if (!modalInfo || !modalStage || !imgModal) return null;
+  if (!modal || !modalInfo || !modalStage || !imgModal) return null;
+
+  const DIST_FADE = 160;     // px até a imagem sumir
+  const THRESHOLD = 120;     // px até o stage colapsar
 
   let ticking = false;
   let rafId = null;
-  let ultimoAplicado = -1;
-
-  const ABERTO_H  = 62;
-  const FECHADO_H = 0;
-  const INFO_MIN  = 38;
-  const INFO_MAX  = 78;
-
-  function limites(){
-    const h = window.innerHeight;
-    return { ini: 0, fim: Math.max(160, h * 0.24) };
-  }
+  let ultimoP = -1;
+  let stageRecolhido = false;
 
   function smoothstep(t){
-    return t * t * t * (t * (t * 6 - 15) + 10);
+    return t * t * (3 - 2 * t);
   }
 
   function aplicar(p){
-    if (Math.abs(p - ultimoAplicado) < 0.0015) return;
-    ultimoAplicado = p;
+    if (Math.abs(p - ultimoP) < 0.004) return;
+    ultimoP = p;
 
     const e = smoothstep(p);
-    const alturaVh = ABERTO_H - (ABERTO_H - FECHADO_H) * e;
-    const opacidade = e < 0.66 ? 1 : Math.max(0, 1 - (e - 0.66) / 0.34);
-    const deslocY = -14 * e;
-    const infoMax = INFO_MIN + (INFO_MAX - INFO_MIN) * e;
+    const opacidade = 1 - e;
+    const escala    = 1 - 0.12 * e;
+    const blur      = 6 * e;
 
-    modalStage.style.height = alturaVh + "vh";
-    modalStage.style.opacity = opacidade;
-    modalStage.style.transform = `translateY(${deslocY}px)`;
-    modalStage.style.pointerEvents = opacidade < 0.1 ? "none" : "";
-
-    imgModal.style.height = alturaVh + "vh";
     imgModal.style.opacity = opacidade;
-
-    modalInfo.style.maxHeight = infoMax + "vh";
-
-    const esconder = opacidade < 0.05;
-    const setOp = (el) => {
-      if (!el) return;
-      el.style.opacity = esconder ? "0" : "";
-      el.style.pointerEvents = esconder ? "none" : "";
-    };
-    setOp(btnFechar);
-    setOp(modalFav);
-    setOp(modalShare);
-    setOp(btnPrev);
-    setOp(btnNext);
+    imgModal.style.transform = `scale(${escala})`;
+    imgModal.style.filter = blur > 0.1 ? `blur(${blur}px)` : "";
   }
 
   function atualizar(){
-    const y = modalInfo.scrollTop;
-    const { ini, fim } = limites();
-    const p = Math.max(0, Math.min(1, (y - ini) / (fim - ini)));
+    const y = modal.scrollTop;
+    const p = Math.max(0, Math.min(1, y / DIST_FADE));
     aplicar(p);
+
+    const deveRecolher = y > THRESHOLD;
+    if (deveRecolher !== stageRecolhido){
+      stageRecolhido = deveRecolher;
+      modalStage.classList.toggle("recolhido", deveRecolher);
+    }
+
     ticking = false;
   }
 
@@ -1796,29 +1782,19 @@ const SCROLL_HERO = (() => {
     rafId = requestAnimationFrame(atualizar);
   }
 
-  modalInfo.addEventListener("scroll", agendar, { passive: true });
-  window.addEventListener("resize", agendar);
-  window.addEventListener("orientationchange", agendar);
+  modal.addEventListener("scroll", agendar, { passive: true });
 
   function reset(){
     if (rafId) cancelAnimationFrame(rafId);
     ticking = false;
-    ultimoAplicado = -1;
-    modalStage.style.height = "";
-    modalStage.style.opacity = "";
-    modalStage.style.transform = "";
-    modalStage.style.pointerEvents = "";
-    imgModal.style.height = "";
+    ultimoP = -1;
+    stageRecolhido = false;
     imgModal.style.opacity = "";
-    modalInfo.style.maxHeight = "";
-    [btnFechar, modalFav, modalShare, btnPrev, btnNext].forEach(el => {
-      if (el){ el.style.opacity = ""; el.style.pointerEvents = ""; }
-    });
-    if (modalInfo) modalInfo.scrollTop = 0;
-    aplicar(0);
+    imgModal.style.transform = "";
+    imgModal.style.filter = "";
+    modalStage.classList.remove("recolhido");
+    if (modal) modal.scrollTop = 0;
   }
-
-  aplicar(0);
 
   return { reset, agendar };
 })();
@@ -1828,7 +1804,7 @@ function resetScrollHero(){
 }
 
 /* ============================================
-   LOADING + INIT (substituído pelo loading completo do HairOS)
+   LOADING + INIT
    ============================================ */
 document.addEventListener("DOMContentLoaded", function(){
   renderChips();
