@@ -370,6 +370,7 @@
 
   .modal-info{
     --raio:26px;
+    transition:border-radius .28s var(--ease-out);
     position:relative;z-index:2;
     width:100%;
     min-height:100%;
@@ -382,7 +383,9 @@
     border-top:1px solid var(--border-gold);
     box-shadow:0 -18px 40px rgba(0,0,0,.55);
   }
-  .modal-info::before{
+  .modal-info.topo{--raio:0px}
+  .modal-info.topo::before{opacity:0}
+  .modal-info::before{transition:opacity .2s ease;
     content:"";display:block;width:38px;height:4px;border-radius:4px;
     background:rgba(212,176,122,.35);margin:0 auto 18px;
   }
@@ -401,6 +404,17 @@
   .modal.zoom-mode .modal-nav,
   .modal.zoom-mode .modal-acoes{opacity:0 !important;pointer-events:none !important}
   .modal.zoom-mode .modal-info{opacity:0;pointer-events:none}
+  @keyframes heroScroll{
+    from{opacity:1;transform:scale(1)}
+    to{opacity:.12;transform:scale(.94)}
+  }
+  @supports (animation-timeline:scroll()){
+    .modal-stage{
+      animation:heroScroll linear both;
+      animation-timeline:scroll(nearest block);
+      animation-range:0px calc(var(--stage-pad) + min(62vh,560px) + 8px);
+    }
+  }
   .modal.zoom-mode{overflow:hidden}
   .modal.zoom-mode .modal-stage{overflow:visible;opacity:1 !important;transform:none !important;z-index:6;will-change:auto}
 
@@ -1736,18 +1750,17 @@ const SCROLL_HERO = (() => {
   if (!modal || !modalInfo || !modalStage || !imgModal) return null;
 
   const SOBREPOSICAO = 24;   // igual ao margin-top negativo do .modal-info
-  const RAIO_MAX = 26;       // igual ao --raio do CSS
-  const RAMPA_RAIO = 70;     // px finais em que os cantos endireitam
+  // Com scroll-timeline o efeito da imagem é feito 100% no CSS (compositor).
+  // Fallback (navegadores antigos): só opacity, que não sofre com defasagem de 1 frame.
+  const TEM_TIMELINE = !!(window.CSS && CSS.supports && CSS.supports("animation-timeline: scroll()"));
 
   let rafId = null, agendado = false;
-  let distTopo = 1, ultimoY = -1, ultimoRaio = -1;
+  let distTopo = 1, noTopo = false;
 
   const clamp01 = (v) => v < 0 ? 0 : v > 1 ? 1 : v;
-  const suave = (t) => t * t * (3 - 2 * t);
 
   function medir(){
     distTopo = Math.max(1, modalStage.offsetHeight - SOBREPOSICAO);
-    ultimoY = -1;
     atualizar();
   }
 
@@ -1755,18 +1768,16 @@ const SCROLL_HERO = (() => {
     agendado = false;
     if (zoomAtivo) return;
     const y = Math.max(0, modal.scrollTop);
-    if (y === ultimoY) return;
-    ultimoY = y;
 
-    const e = suave(clamp01(y / distTopo));
-    modalStage.style.opacity = (1 - 0.9 * e).toFixed(3);
-    modalStage.style.transform =
-      `translate3d(0,${(-y * 0.18).toFixed(1)}px,0) scale(${(1 - 0.06 * e).toFixed(4)})`;
+    // troca de estado só ao cruzar o limite (com histerese) — nada por frame
+    const alvo = noTopo ? y > distTopo - 40 : y >= distTopo - 2;
+    if (alvo !== noTopo){
+      noTopo = alvo;
+      modalInfo.classList.toggle("topo", noTopo);
+    }
 
-    const raio = RAIO_MAX * (1 - clamp01((y - (distTopo - RAMPA_RAIO)) / RAMPA_RAIO));
-    if (Math.abs(raio - ultimoRaio) > 0.4){
-      ultimoRaio = raio;
-      modalInfo.style.setProperty("--raio", raio.toFixed(1) + "px");
+    if (!TEM_TIMELINE){
+      modalStage.style.opacity = (1 - 0.88 * clamp01(y / distTopo)).toFixed(2);
     }
   }
 
@@ -1783,10 +1794,9 @@ const SCROLL_HERO = (() => {
   function reset(){
     if (rafId) cancelAnimationFrame(rafId);
     agendado = false;
-    ultimoRaio = -1;
+    noTopo = false;
+    modalInfo.classList.remove("topo");
     modalStage.style.opacity = "";
-    modalStage.style.transform = "";
-    modalInfo.style.removeProperty("--raio");
     modal.scrollTop = 0;
     medir();
   }
