@@ -276,44 +276,35 @@
   /* ========== MODAL ========== */
   .modal{
     position:fixed;inset:0;
-    display:flex;flex-direction:column;
-    align-items:center;justify-content:flex-start;
-    gap:0;
-    padding:calc(var(--header-h) + 12px) 16px calc(env(safe-area-inset-bottom,0) + 18px);
-    background:rgba(10,8,8,.98);
-    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    display:block;
+    padding:0;
+    --stage-pad:calc(var(--header-h) + 12px + env(safe-area-inset-top,0px));
+    background:#0a0808;
     z-index:1000;opacity:0;visibility:hidden;
     transition:opacity .4s ease,visibility .4s;
     overflow-y:auto;
     overflow-x:hidden;
     -webkit-overflow-scrolling:touch;
     overscroll-behavior:contain;
+    overflow-anchor:none;
   }
   .modal.ativo{opacity:1;visibility:visible}
   .modal::-webkit-scrollbar{width:0;height:0;display:none}
   .modal{scrollbar-width:none;-ms-overflow-style:none}
 
   .modal-stage{
-    position:relative;
-    flex:0 0 auto;
+    position:sticky;top:0;z-index:1;
     width:100%;
-    max-height:62vh;
-    height:62vh;
+    height:calc(var(--stage-pad) + min(62vh,560px) + 32px);
+    padding:var(--stage-pad) 0 32px;
+    box-sizing:border-box;
     display:flex;
     align-items:center;
     justify-content:center;
     touch-action:pan-y;
     overflow:hidden;
-    transition:max-height .5s var(--ease-out), opacity .35s var(--ease-out), margin .4s var(--ease-out);
-    will-change:max-height,opacity;
     transform-origin:center top;
-  }
-  .modal-stage.recolhido{
-    max-height:0;
-    height:0;
-    opacity:0;
-    margin:0;
-    pointer-events:none;
+    will-change:transform,opacity;
   }
 
   .modal-stage img{
@@ -373,15 +364,27 @@
   .modal-acao.fav.on svg{fill:var(--danger);stroke:var(--danger)}
   .modal-acao.fav.pop{animation:heartPop .45s ease}
 
-  .modal-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:5}
+  .modal-nav{position:absolute;top:calc(var(--stage-pad) + min(62vh,560px) / 2);transform:translateY(-50%);z-index:5}
   .modal-nav.prev{left:4px}.modal-nav.next{right:4px}
   @media (min-width:700px){.modal-nav.prev{left:16px}.modal-nav.next{right:16px}}
 
   .modal-info{
-    width:min(560px,100%);
+    --raio:26px;
+    position:relative;z-index:2;
+    width:100%;
+    min-height:100%;
+    margin-top:-24px;
+    box-sizing:border-box;
+    padding:14px max(20px,calc((100% - 560px) / 2)) calc(env(safe-area-inset-bottom,0px) + 80px);
     text-align:center;
-    padding:0 4px 60px;
-    margin-top:14px;
+    background:#120f0c;
+    border-radius:var(--raio) var(--raio) 0 0;
+    border-top:1px solid var(--border-gold);
+    box-shadow:0 -18px 40px rgba(0,0,0,.55);
+  }
+  .modal-info::before{
+    content:"";display:block;width:38px;height:4px;border-radius:4px;
+    background:rgba(212,176,122,.35);margin:0 auto 18px;
   }
 
   .modal-titulo{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:1.2rem;color:var(--text);letter-spacing:-.01em}
@@ -398,7 +401,8 @@
   .modal.zoom-mode .modal-nav,
   .modal.zoom-mode .modal-acoes{opacity:0 !important;pointer-events:none !important}
   .modal.zoom-mode .modal-info{opacity:0;pointer-events:none}
-  .modal.zoom-mode .modal-stage{overflow:visible;max-height:none !important;height:auto !important}
+  .modal.zoom-mode{overflow:hidden}
+  .modal.zoom-mode .modal-stage{overflow:visible;opacity:1 !important;transform:none !important;z-index:6;will-change:auto}
 
   .modal-kit{margin-top:22px;padding-top:20px;border-top:1px solid var(--border)}
   .modal-kit-titulo{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:1rem;color:var(--text);margin-bottom:16px;letter-spacing:-.005em}
@@ -410,10 +414,6 @@
 
   .footer-mini{text-align:center;margin-top:64px;padding-top:32px;border-top:1px solid var(--border);font-size:.6rem;color:var(--text-muted);letter-spacing:.3em;text-transform:uppercase;font-weight:300;opacity:.5}
   .footer-mini .gold{color:var(--gold);opacity:1}
-
-  @media (min-width:900px){
-    .modal{padding:68px 16px 40px}
-  }
 
   /* ========== DOCK ========== */
   .dock{
@@ -1727,73 +1727,68 @@ modalStage.addEventListener("touchend", (e) => {
 }, {passive:true});
 
 /* ============================================================
-   SCROLL-DRIVEN HERO — FINAL (ocupa a tela toda)
-   - Imagem some com fade + scale + blur
-   - Stage colapsa (max-height 62vh → 0) liberando espaço
-   - Conteúdo sobe e ocupa a tela toda
-   - Botões sempre visíveis
+   SCROLL-DRIVEN HERO — sheet por cima da imagem
+   - O stage é sticky e tem altura FIXA (zero reflow durante o scroll)
+   - O sheet sobe naturalmente sobre a imagem (scroll nativo = fluido)
+   - JS só anima transform/opacity do stage (compositor) e o raio do sheet
    ============================================================ */
 const SCROLL_HERO = (() => {
   if (!modal || !modalInfo || !modalStage || !imgModal) return null;
 
-  const DIST_FADE = 160;     // px até a imagem sumir
-  const THRESHOLD = 120;     // px até o stage colapsar
+  const SOBREPOSICAO = 24;   // igual ao margin-top negativo do .modal-info
+  const RAIO_MAX = 26;       // igual ao --raio do CSS
+  const RAMPA_RAIO = 70;     // px finais em que os cantos endireitam
 
-  let ticking = false;
-  let rafId = null;
-  let ultimoP = -1;
-  let stageRecolhido = false;
+  let rafId = null, agendado = false;
+  let distTopo = 1, ultimoY = -1, ultimoRaio = -1;
 
-  function smoothstep(t){
-    return t * t * (3 - 2 * t);
-  }
+  const clamp01 = (v) => v < 0 ? 0 : v > 1 ? 1 : v;
+  const suave = (t) => t * t * (3 - 2 * t);
 
-  function aplicar(p){
-    if (Math.abs(p - ultimoP) < 0.004) return;
-    ultimoP = p;
-
-    const e = smoothstep(p);
-    const opacidade = 1 - e;
-    const escala    = 1 - 0.12 * e;
-    const blur      = 6 * e;
-
-    imgModal.style.opacity = opacidade;
-    imgModal.style.transform = `scale(${escala})`;
-    imgModal.style.filter = blur > 0.1 ? `blur(${blur}px)` : "";
+  function medir(){
+    distTopo = Math.max(1, modalStage.offsetHeight - SOBREPOSICAO);
+    ultimoY = -1;
+    atualizar();
   }
 
   function atualizar(){
-    const y = modal.scrollTop;
-    const p = Math.max(0, Math.min(1, y / DIST_FADE));
-    aplicar(p);
+    agendado = false;
+    if (zoomAtivo) return;
+    const y = Math.max(0, modal.scrollTop);
+    if (y === ultimoY) return;
+    ultimoY = y;
 
-    const deveRecolher = y > THRESHOLD;
-    if (deveRecolher !== stageRecolhido){
-      stageRecolhido = deveRecolher;
-      modalStage.classList.toggle("recolhido", deveRecolher);
+    const e = suave(clamp01(y / distTopo));
+    modalStage.style.opacity = (1 - 0.9 * e).toFixed(3);
+    modalStage.style.transform =
+      `translate3d(0,${(-y * 0.18).toFixed(1)}px,0) scale(${(1 - 0.06 * e).toFixed(4)})`;
+
+    const raio = RAIO_MAX * (1 - clamp01((y - (distTopo - RAMPA_RAIO)) / RAMPA_RAIO));
+    if (Math.abs(raio - ultimoRaio) > 0.4){
+      ultimoRaio = raio;
+      modalInfo.style.setProperty("--raio", raio.toFixed(1) + "px");
     }
-
-    ticking = false;
   }
 
   function agendar(){
-    if (ticking) return;
-    ticking = true;
+    if (agendado) return;
+    agendado = true;
     rafId = requestAnimationFrame(atualizar);
   }
 
   modal.addEventListener("scroll", agendar, { passive: true });
+  window.addEventListener("resize", medir);
+  if (window.ResizeObserver) new ResizeObserver(medir).observe(modalStage);
 
   function reset(){
     if (rafId) cancelAnimationFrame(rafId);
-    ticking = false;
-    ultimoP = -1;
-    stageRecolhido = false;
-    imgModal.style.opacity = "";
-    imgModal.style.transform = "";
-    imgModal.style.filter = "";
-    modalStage.classList.remove("recolhido");
-    if (modal) modal.scrollTop = 0;
+    agendado = false;
+    ultimoRaio = -1;
+    modalStage.style.opacity = "";
+    modalStage.style.transform = "";
+    modalInfo.style.removeProperty("--raio");
+    modal.scrollTop = 0;
+    medir();
   }
 
   return { reset, agendar };
