@@ -1079,6 +1079,9 @@ function renderCatalogo(animar = true){
       e.stopPropagation();
       compartilharCorte(corte, rotulo);
     });
+    ["pointerdown","touchstart","mouseenter","focus"].forEach(ev =>
+      bShare.addEventListener(ev, () => prepararImagem(corte, rotulo), { passive:true, once:true }));
+    setTimeout(() => prepararImagem(corte, rotulo), 1200 + idx * 60);
 
     actions.append(bFav, bShare);
 
@@ -1098,23 +1101,59 @@ function renderCatalogo(animar = true){
 /* ============================================
    COMPARTILHAR
    ============================================ */
+/* Imagens de compartilhamento: preparadas ANTES do toque, para o share() rodar
+   dentro do gesto do usuário (senão o navegador bloqueia o envio da foto). */
+const ARQ_PRONTOS = {};
+const ARQ_PROMESSAS = {};
+function chaveAngulo(rotulo){
+  return Object.keys(ANGULOS).find(k => ANGULOS[k].label === rotulo) || "frente";
+}
+function prepararImagem(corte, rotulo){
+  const chave = chaveAngulo(rotulo);
+  const id = corte.id + "-" + chave;
+  if (ARQ_PROMESSAS[id]) return ARQ_PROMESSAS[id];
+  const src = corte.imagens && corte.imagens[chave];
+  if (!src) return (ARQ_PROMESSAS[id] = Promise.resolve(null));
+  ARQ_PROMESSAS[id] = fetch(src)
+    .then(r => { if (!r.ok) throw new Error("imagem indisponível"); return r.blob(); })
+    .then(blob => {
+      const arq = new File([blob], "hairos-" + corte.id + "-" + chave + ".png", { type: blob.type || "image/png" });
+      ARQ_PRONTOS[id] = arq;
+      return arq;
+    })
+    .catch(err => { console.warn("HairOS: imagem não preparada", err); delete ARQ_PROMESSAS[id]; return null; });
+  return ARQ_PROMESSAS[id];
+}
 function compartilharCorte(corte, rotulo){
   const url = SITE_URL;
   const titulo = corte.nome + " — HairOS";
+  /* O link vai SÓ dentro do texto (sem o campo "url"), senão o WhatsApp repete. */
   const texto =
     "✨ " + corte.nome + " (" + (rotulo || "Frente") + ")\n" +
     corte.descricao + "\n\n" +
     "🌐 Veja mais no HairOS:\n" + url;
 
-  if (navigator.share){
-    navigator.share({ title: titulo, text: texto, url: url })
-      .catch(err => {
-        if (err && err.name === "AbortError") return;
-        copiarLink(url);
-      });
-    return;
-  }
-  copiarLink(url);
+  if (!navigator.share){ copiarLink(url); return; }
+
+  const soTexto = () => navigator.share({ title: titulo, text: texto })
+    .catch(err => { if (!(err && err.name === "AbortError")) copiarLink(url); });
+
+  const comImagem = (arq) => {
+    if (arq && navigator.canShare && navigator.canShare({ files: [arq] })){
+      return navigator.share({ files: [arq], title: titulo, text: texto })
+        .catch(err => {
+          if (err && err.name === "AbortError") return;
+          console.warn("HairOS: share com imagem falhou", err);
+          return soTexto();
+        });
+    }
+    return soTexto();
+  };
+
+  const id = corte.id + "-" + chaveAngulo(rotulo);
+  if (ARQ_PRONTOS[id]){ comImagem(ARQ_PRONTOS[id]); return; }   /* caminho rápido */
+  showToast("Preparando imagem…");
+  prepararImagem(corte, rotulo).then(comImagem);
 }
 function copiarLink(url){
   if (navigator.clipboard && navigator.clipboard.writeText){
@@ -1586,6 +1625,7 @@ function mostrar(ci, ai, animar){
   const corte = cortes[corteAtual];
   const angulo = ORDEM_ANGULOS[anguloAtual];
   const rotulo = ANGULOS[angulo].label;
+  prepararImagem(corte, rotulo);
 
   const novoSrc = corte.imagens[angulo];
   const novoAlt = corte.nome + " - " + rotulo;
