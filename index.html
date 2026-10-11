@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>HairOS — Cortes + Kits de Produtos</title>
 <meta name="description" content="Escolha o corte perfeito com fotos de frente, lado e atrás. Kits de produtos recomendados para manter o resultado em casa. Links de afiliado.">
+<!-- Open Graph para compartilhamento -->
+<meta property="og:title" content="HairOS — Cortes + Kits de Produtos">
+<meta property="og:description" content="Inspire-se com cortes femininos em 3 ângulos e monte o kit perfeito para manter o visual em casa.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hairosvitrine.vercel.app/">
+<meta property="og:image" content="https://hairosvitrine.vercel.app/imagens/corte01-frente.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230a0808'/%3E%3Ctext x='50' y='72' font-family='Georgia,serif' font-size='72' fill='%23d4b07a' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +37,6 @@
     --danger-text:#e8a0a8;
     --danger-glow:rgba(184,58,74,.35);
     --teal:#4ecdc4;
-
     --glow-soft:0 0 10px rgba(212,176,122,.08);
     --glow-mid:0 0 14px rgba(212,176,122,.12);
     --glow-strong:0 0 20px rgba(212,176,122,.18);
@@ -40,7 +45,7 @@
   html,body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh;line-height:1.65;overflow-x:hidden}
   body{padding:0 14px calc(112px + env(safe-area-inset-bottom,0px));max-width:1600px;margin:0 auto}
   :focus-visible{outline:none;box-shadow:var(--focus-ring)}
-
+  
   @keyframes fadeInUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
   @keyframes logoZoomIn{0%{opacity:0;transform:scale(.1)}100%{opacity:1;transform:scale(1)}}
   @keyframes logoZoomOut{0%{transform:scale(1);opacity:1}100%{transform:scale(8);opacity:0}}
@@ -49,10 +54,10 @@
   @keyframes heartPop{0%{transform:scale(1)}35%{transform:scale(1.22)}100%{transform:scale(1)}}
 
   /* ========== LOADING ========== */
-  .loading-screen{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1.8s cubic-bezier(.4,0,.2,1),visibility 1.8s}
+  .loading-screen{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1.2s cubic-bezier(.4,0,.2,1),visibility 1.2s}
   .loading-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
-  .loading-logo{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:700;font-style:italic;display:flex;align-items:center;gap:4px;animation:logoZoomIn 4.5s var(--ease-luxury) forwards}
-  .loading-logo.zoom-out{animation:logoZoomOut 1.5s cubic-bezier(.77,0,.175,1) forwards}
+  .loading-logo{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:700;font-style:italic;display:flex;align-items:center;gap:4px;animation:logoZoomIn 1.2s var(--ease-luxury) forwards}
+  .loading-logo.zoom-out{animation:logoZoomOut 0.8s cubic-bezier(.77,0,.175,1) forwards}
   .loading-logo span{color:var(--gold);text-shadow:0 0 60px var(--gold-glow)}
   .loading-logo .dot{color:var(--gold);font-size:3rem}
   .loading-bar{margin-top:28px;width:min(210px,64vw);height:3px;background:var(--border);border-radius:2px;overflow:hidden}
@@ -60,7 +65,7 @@
   .loading-text{margin-top:16px;font-size:.7rem;color:var(--text-muted);letter-spacing:.15em;text-transform:uppercase;font-weight:300;opacity:.4}
   .loading-percent{margin-top:6px;font-size:.65rem;color:var(--gold);opacity:.6}
 
-  .main-content{opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out),visibility .9s}
+  .main-content{opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .6s var(--ease-out),transform .6s var(--ease-out),visibility .6s}
   .main-content.visible{opacity:1;visibility:visible;transform:translateY(0)}
 
   /* ========== HEADER ========== */
@@ -121,7 +126,7 @@
   .page-title .sub{display:block;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted);font-weight:300;line-height:1.9}
   .page-title .sub .highlight{color:var(--gold);font-weight:400}
 
-  /* ========== CHIPS EM CARROSSEL ========== */
+  /* ========== CHIPS ========== */
   .chips-carousel{position:relative;margin:0 -14px 22px;padding-top:var(--nav-space);padding-bottom:8px}
   .chips-carousel::before,
   .chips-carousel::after{content:"";position:absolute;top:var(--nav-space);bottom:8px;width:28px;pointer-events:none;z-index:2}
@@ -202,17 +207,9 @@
   }
 
   @media (hover:none){
-    .card-label{
-      opacity:0;
-      transform:translateX(-50%) translateY(10px);
-      font-size:.72rem;
-      padding:5px 12px;
-    }
+    .card-label{opacity:0;transform:translateX(-50%) translateY(10px);font-size:.72rem;padding:5px 12px}
     .card-label .angle{display:none}
-    .card.touch-ativo .card-label{
-      opacity:1;
-      transform:translateX(-50%) translateY(0);
-    }
+    .card.touch-ativo .card-label{opacity:1;transform:translateX(-50%) translateY(0)}
     .card-actions{opacity:0;transform:translateY(-6px);pointer-events:none}
     .card.touch-ativo .card-actions{opacity:1;transform:translateY(0);pointer-events:auto}
     .card-action{width:32px;height:32px;background:rgba(10,8,8,.72)}
@@ -1101,8 +1098,6 @@ function renderCatalogo(animar = true){
 /* ============================================
    COMPARTILHAR
    ============================================ */
-/* Imagens de compartilhamento: preparadas ANTES do toque, para o share() rodar
-   dentro do gesto do usuário (senão o navegador bloqueia o envio da foto). */
 const ARQ_PRONTOS = {};
 const ARQ_PROMESSAS = {};
 function chaveAngulo(rotulo){
@@ -1127,7 +1122,6 @@ function prepararImagem(corte, rotulo){
 function compartilharCorte(corte, rotulo){
   const url = SITE_URL;
   const titulo = corte.nome + " — HairOS";
-  /* O link vai SÓ dentro do texto (sem o campo "url"), senão o WhatsApp repete. */
   const texto =
     "✨ " + corte.nome + " (" + (rotulo || "Frente") + ")\n" +
     corte.descricao + "\n\n" +
@@ -1151,7 +1145,7 @@ function compartilharCorte(corte, rotulo){
   };
 
   const id = corte.id + "-" + chaveAngulo(rotulo);
-  if (ARQ_PRONTOS[id]){ comImagem(ARQ_PRONTOS[id]); return; }   /* caminho rápido */
+  if (ARQ_PRONTOS[id]){ comImagem(ARQ_PRONTOS[id]); return; }
   showToast("Preparando imagem…");
   prepararImagem(corte, rotulo).then(comImagem);
 }
@@ -1191,7 +1185,6 @@ document.addEventListener("touchstart", (e) => {
 /* ============================================
    KITS
    ============================================ */
-/* CTA dos links de afiliado: cartão inteiro clicável + botão visível */
 function adicionarCtaKit(a){
   const cta = document.createElement("span"); cta.className = "kit-cta"; cta.textContent = "Ver no Mercado Livre ↗";
   a.appendChild(cta);
@@ -1201,32 +1194,37 @@ function adicionarCtaKit(a){
   });
 }
 
-const kitsLista = document.getElementById("kitsLista");
-cortes.forEach(corte => {
-  const itens = (corte.kit || []).filter(k => k && k.nome && k.link);
-  if (!itens.length) return;
+function renderKits(){
+  const kitsLista = document.getElementById("kitsLista");
+  if (!kitsLista) return;
+  kitsLista.innerHTML = "";
+  
+  cortes.forEach(corte => {
+    const itens = (corte.kit || []).filter(k => k && k.nome && k.link);
+    if (!itens.length) return;
 
-  const bloco = document.createElement("div"); bloco.className = "kit-bloco";
-  const inner = document.createElement("div"); inner.className = "kit-bloco-inner";
+    const bloco = document.createElement("div"); bloco.className = "kit-bloco";
+    const inner = document.createElement("div"); inner.className = "kit-bloco-inner";
 
-  const titulo = document.createElement("div"); titulo.className = "kit-bloco-titulo"; titulo.textContent = corte.nome;
-  const desc = document.createElement("div"); desc.className = "kit-bloco-desc"; desc.textContent = corte.descricao;
-  const fio = document.createElement("span"); fio.className = "kit-bloco-divider";
-  const lista = document.createElement("div"); lista.className = "kit-bloco-lista";
+    const titulo = document.createElement("div"); titulo.className = "kit-bloco-titulo"; titulo.textContent = corte.nome;
+    const desc = document.createElement("div"); desc.className = "kit-bloco-desc"; desc.textContent = corte.descricao;
+    const fio = document.createElement("span"); fio.className = "kit-bloco-divider";
+    const lista = document.createElement("div"); lista.className = "kit-bloco-lista";
 
-  itens.forEach(k => {
-    const a = document.createElement("a");
-    a.className = "kit-link"; a.href = k.link; a.target = "_blank"; a.rel = "sponsored noopener noreferrer";
-    const nome = document.createElement("span"); nome.className = "kit-nome"; nome.textContent = k.nome; a.appendChild(nome);
-    if (k.razao){ const r = document.createElement("span"); r.className = "kit-razao"; r.textContent = k.razao; a.appendChild(r); }
-    adicionarCtaKit(a);
-    lista.appendChild(a);
+    itens.forEach(k => {
+      const a = document.createElement("a");
+      a.className = "kit-link"; a.href = k.link; a.target = "_blank"; a.rel = "sponsored noopener noreferrer";
+      const nome = document.createElement("span"); nome.className = "kit-nome"; nome.textContent = k.nome; a.appendChild(nome);
+      if (k.razao){ const r = document.createElement("span"); r.className = "kit-razao"; r.textContent = k.razao; a.appendChild(r); }
+      adicionarCtaKit(a);
+      lista.appendChild(a);
+    });
+
+    inner.append(titulo, desc, fio, lista);
+    bloco.appendChild(inner);
+    kitsLista.appendChild(bloco);
   });
-
-  inner.append(titulo, desc, fio, lista);
-  bloco.appendChild(inner);
-  kitsLista.appendChild(bloco);
-});
+}
 
 /* ============================================
    NAVEGAÇÃO
@@ -1857,11 +1855,13 @@ function resetScrollHero(){
 }
 
 /* ============================================
-   LOADING + INIT
+   LOADING + INIT (RÁPIDO E FUNCIONAL)
    ============================================ */
 document.addEventListener("DOMContentLoaded", function(){
+  // Renderiza tudo nos bastidores primeiro
   renderChips();
   renderCatalogo();
+  renderKits();
 
   const ls  = document.getElementById("loadingScreen");
   const ll  = document.getElementById("loadingLogo");
@@ -1875,34 +1875,26 @@ document.addEventListener("DOMContentLoaded", function(){
     if (lbc) lbc.style.opacity = "0";
     if (lt)  lt.style.opacity  = "0";
     if (lp)  lp.style.opacity  = "0";
-    setTimeout(() => { if (ll) ll.classList.add("zoom-out"); }, 500);
+    setTimeout(() => { if (ll) ll.classList.add("zoom-out"); }, 300);
     setTimeout(() => {
       if (ls) ls.classList.add("hidden");
       if (mc) mc.classList.add("visible");
       document.body.classList.add("app-pronta");
-    }, 1800);
+    }, 800);
   }
 
+  // Barra enche rápido (1 segundo)
   let v = 0;
   const pi = setInterval(() => {
-    v++;
+    v += 4; 
     if (v > 100) v = 100;
     if (lb) lb.style.width = v + "%";
     if (lp) lp.textContent = v + "%";
-    if (v >= 90 && lt) lt.textContent = "inspirações prontas";
-    if (v >= 100){ clearInterval(pi); finish(); }
-  }, 45);
+    if (v >= 100) clearInterval(pi);
+  }, 30);
 
-  setTimeout(() => {
-    if (v < 100){
-      clearInterval(pi);
-      v = 100;
-      if (lb) lb.style.width = "100%";
-      if (lp) lp.textContent = "100%";
-      if (lt) lt.textContent = "inspirações prontas";
-      finish();
-    }
-  }, 8000);
+  // O loading SEMPRE desaparece em 1.2 segundos, independente da barra
+  setTimeout(finish, 1200);
 });
 </script>
 </body>
