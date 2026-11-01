@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0808">
+  <meta name="color-scheme" content="dark">
+  <meta name="format-detection" content="telephone=no">
+
+  <title>Vitrine de Kits Profissionais — HairOS</title>
+  <meta name="description" content="Nossa curadoria de kits profissionais de cabelo e maquiagem. Produtos recomendados pelo HairOS com os melhores preços.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://hairosvitrine.vercel.app/kits.html">
+
+  <meta name="p:domain_verify" content="dd06cb44ef57a7480eea8850c1535f46"/>
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="HairOS">
+  <meta property="og:title" content="Vitrine de Kits Profissionais — HairOS">
+  <meta property="og:description" content="Nossa curadoria de kits profissionais de cabelo e maquiagem.">
+  <meta property="og:url" content="https://hairosvitrine.vercel.app/kits.html">
+  <meta property="og:image" content="https://hairosvitrine.vercel.app/img/og-hairos.webp">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230a0808'/%3E%3Ctext x='50' y='72' font-family='Georgia,serif' font-size='72' fill='%23d9bb90' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9822863010070033" crossorigin="anonymous"></script>
+
+  <style>
+    /* CSS extra apenas para esta página de vitrine */
+    .kits-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 2 colunas no celular */
+      gap: 16px;
+      margin-top: 24px;
+    }
+    @media (min-width: 768px) {
+      .kits-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 colunas no tablet */
+        gap: 20px;
+      }
+    }
+    @media (min-width: 1024px) {
+      .kits-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 colunas no desktop */
+      }
+    }
+
+    .kit-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: var(--tr-ui);
+      text-align: center;
+    }
+    .kit-card:hover {
+      border-color: var(--border-gold);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.4);
+    }
+
+    .kit-img-wrap {
+      width: 100%;
+      aspect-ratio: 1/1; /* Força o quadrado perfeito para as imagens geradas */
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff; /* Fundo branco para combinar com a imagem */
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .kit-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 8px;
+    }
+
+    .kit-nome {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      margin-bottom: 4px;
+    }
+    .kit-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      flex-grow: 1;
+    }
+    .kit-cta {
+      margin-top: 12px;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      color: var(--gold);
+      border: 1px solid var(--border-gold);
+      padding: 8px;
+      border-radius: 999px;
+      background: rgba(217,187,144,.05);
+    }
+    .kit-card:hover .kit-cta {
+      background: var(--gold);
+      color: #1b1209;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand" aria-label="HairOS — início">
+        <span class="brand-h">H</span><span class="brand-rest">airOS</span>
+      </a>
+      <nav class="nav-desktop" aria-label="Navegação principal">
+        <a href="index.html#artigos">Artigos</a>
+        <a href="kits.html">Kits</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+      </nav>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="drawer">
+        <span><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true" inert>
+    <div class="drawer-header">
+      <span class="brand"><span class="brand-h">H</span><span class="brand-rest">airOS</span></span>
+      <button class="drawer-fechar" id="drawerFechar" aria-label="Fechar menu">&times;</button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="index.html#artigos">Artigos</a>
+      <a href="kits.html">Kits</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+      <a href="privacidade.html">Privacidade</a>
+    </nav>
+  </aside>
+
+  <main>
+    <section class="page-title">
+      <h1>Vitrine de Kits</h1>
+      <span class="divider"></span>
+      <div class="sub">A curadoria do HairOS<br><span class="highlight">para o seu cabelo</span></div>
+    </section>
+
+    <section class="container">
+      <div class="legal" style="text-align: center; margin-bottom: 32px;">
+        <p>Reunimos aqui os kits profissionais que realmente entregam resultado. Selecionamos as marcas mais recomendadas pelos cabeleireiros para hidratação, reconstrução, coloração e maquiagem. Explore a vitrine e encontre o kit perfeito para a sua rotina.</p>
+      </div>
+
+      <div class="kits-grid">
+
+        <!-- Kérastase -->
+        <a class="kit-card" href="https://meli.la/1MwSY7v" target="_blank" rel="nofollow sponsored noopener noreferrer">
+          <span class="kit-img-wrap">
+            <img src="img/produto-kerastase.webp" alt="Kit Kérastase" loading="lazy" onerror="_imgErro(this)">
+          </span>
+          <span class="kit-nome">Kit Kérastase</span>
+          <span class="kit-sub">Brilho e finalização</span>
+          <span class="kit-cta">Ver oferta</span>
+        </a>
+
+        <!-- Joico -->
+        <a class="kit-card" href="https://meli.la/2x9xqBe" target="_blank" rel="nofollow sponsored noopener noreferrer">
+          <span class="kit-img-wrap">
+            <img src="img/produto-joico.webp" alt="Kit Joico" loading="lazy" onerror="_imgErro(this)">
+          </span>
+          <span class="kit-nome">Kit Joico</span>
+          <span class="kit-sub">Hidratação e maciez</span>
+          <span class="kit-cta">Ver oferta</span>
+        </a>
+
+        <!-- Keune -->
+        <a class="kit-card" href="https://meli.la/1GbiW7M" target="_blank" rel="nofollow sponsored noopener noreferrer">
+          <span class="kit-img-wrap">
+            <img src="img/produto-keune.webp" alt="Kit Keune" loading="lazy" onerror="_imgErro(this)">
+          </span>
+          <span class="kit-nome">Kit Keune</span>
+          <span class="kit-sub">Modelagem e textura</span>
+          <span class="kit-cta">Ver oferta</span>
+        </a>
+
+        <!-- Inoa -->
+        <a class="kit-card" href="https://meli.la/28LpPj2" target="_blank" rel="nofollow sponsored noopener noreferrer">
+          <span class="kit-img-wrap">
+            <img src="img/produto-inoa.webp" alt="Kit Inoa" loading="lazy" onerror="_imgErro(this)">
+          </span>
+          <span class="kit-nome">Kit Inoa</span>
+          <span class="kit-sub">Fixação da cor</span>
+          <span class="kit-cta">Ver oferta</span>
+        </a>
+
+        <!-- Expert -->
+        <a class="kit-card" href="https://meli.la/2nmeunk" target="_blank" rel="nofollow sponsored noopener noreferrer">
+          <span class="kit-img-wrap">
+            <img src="img/produto-expert.webp" alt="Kit Expert" loading="lazy" onerror="_imgErro(this)">
+          </span>
+          <span class="kit-nome">Kit Expert</span>
+          <span class="kit-sub">Reconstrução capilar</span>
+          <span class="kit-cta">Ver oferta</span>
+        </a>
+
+        <!-- Igora -->
+        <a class="kit-card" href="https://meli.la/1MBhptD" target="_blank" rel="nofollow sponsored noopener noreferrer">
+          <span class="kit-img-wrap">
+            <img src="img/produto-igora.webp" alt="Kit Igora" loading="lazy" onerror="_imgErro(this)">
+          </span>
+          <span class="kit-nome">Kit Igora</span>
+          <span class="kit-sub">Manutenção do tom</span>
+          <span class="kit-cta">Ver oferta</span>
+        </a>
+
+        <!-- Moroccanoil -->
+        <a class="kit-card" href="https://meli.la/2djh4z5" target="_blank" rel="nofollow sponsored noopener noreferrer">
+          <span class="kit-img-wrap">
+            <img src="img/produto-moroccanoil.webp" alt="Moroccanoil" loading="lazy" onerror="_imgErro(this)">
+          </span>
+          <span class="kit-nome">Moroccanoil</span>
+          <span class="kit-sub">Óleo para pontas</span>
+          <span class="kit-cta">Ver oferta</span>
+        </a>
+
+        <!-- Schwarzkopf -->
+        <a class="kit-card" href="https://meli.la/2jyNSj5" target="_blank" rel="nofollow sponsored noopener noreferrer">
+          <span class="kit-img-wrap">
+            <img src="img/produto-schwarzkopf.webp" alt="Kit Schwarzkopf" loading="lazy" onerror="_imgErro(this)">
+          </span>
+          <span class="kit-nome">Kit Schwarzkopf</span>
+          <span class="kit-sub">Textura e fixação</span>
+          <span class="kit-cta">Ver oferta</span>
+        </a>
+
+        <!-- Living Proof -->
+        <a class="kit-card" href="https://meli.la/34fZAEp" target="_blank" rel="nofollow sponsored noopener noreferrer">
+          <span class="kit-img-wrap">
+            <img src="img/produto-livingproof.webp" alt="Living Proof" loading="lazy" onerror="_imgErro(this)">
+          </span>
+          <span class="kit-nome">Living Proof</span>
+          <span class="kit-sub">Leveza para fio fino</span>
+          <span class="kit-cta">Ver oferta</span>
+        </a>
+
+        <!-- Davines -->
+        <a class="kit-card" href="https://meli.la/2sHyDUk" target="_blank" rel="nofollow sponsored noopener noreferrer">
+          <span class="kit-img-wrap">
+            <img src="img/produto-davines.webp" alt="Kit Davines" loading="lazy" onerror="_imgErro(this)">
+          </span>
+          <span class="kit-nome">Kit Davines</span>
+          <span class="kit-sub">Leveza e movimento</span>
+          <span class="kit-cta">Ver oferta</span>
+        </a>
+
+        <!-- Redken -->
+        <a class="kit-card" href="https://meli.la/181L92o" target="_blank" rel="nofollow sponsored noopener noreferrer">
+          <span class="kit-img-wrap">
+            <img src="img/produto-redken.webp" alt="Kit Redken" loading="lazy" onerror="_imgErro(this)">
+          </span>
+          <span class="kit-nome">Kit Redken</span>
+          <span class="kit-sub">Alinhamento e brilho</span>
+          <span class="kit-cta">Ver oferta</span>
+        </a>
+
+        <!-- Kit Noiva -->
+        <a class="kit-card" href="https://meli.la/1H35KAT" target="_blank" rel="nofollow sponsored noopener noreferrer">
+          <span class="kit-img-wrap">
+            <img src="img/produto-kit-noiva.webp" alt="Kit Noiva" loading="lazy" onerror="_imgErro(this)">
+          </span>
+          <span class="kit-nome">Kit Noiva</span>
+          <span class="kit-sub">Cuidados para o grande dia</span>
+          <span class="kit-cta">Ver oferta</span>
+        </a>
+
+        <!-- MAC -->
+        <a class="kit-card" href="https://meli.la/1Zs9Ncu" target="_blank" rel="nofollow sponsored noopener noreferrer">
+          <span class="kit-img-wrap">
+            <img src="img/produto-mac.webp" alt="Kit MAC" loading="lazy" onerror="_imgErro(this)">
+          </span>
+          <span class="kit-nome">Kit MAC</span>
+          <span class="kit-sub">Base, pó e batom</span>
+          <span class="kit-cta">Ver oferta</span>
+        </a>
+
+      </div>
+
+      <p class="aviso-afiliado aviso-inline" style="margin-top: 32px; max-width: 600px;">
+        <span class="gold">Links de afiliado:</span> ao comprar por um link indicado, o site pode receber comissão — sem custo extra para você.
+      </p>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="index.html#artigos">Artigos</a>
+      <a href="kits.html">Kits</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+      <a href="privacidade.html">Privacidade</a>
+      <a href="privacidade.html#termos">Termos</a>
+    </div>
+    <p class="footer-note">
+      <span class="gold">Links de afiliado:</span> ao comprar por um link indicado, o site pode receber comissão — sem custo extra para você.<br>
+      © <span id="anoAtual">2026</span> HairOS
+    </p>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

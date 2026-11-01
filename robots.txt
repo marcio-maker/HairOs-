@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /artigos/artigo-modelo.html
+
+Sitemap: https://hairosvitrine.vercel.app/sitemap.xml

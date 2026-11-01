@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0808">
+  <meta name="color-scheme" content="dark">
+  <meta name="format-detection" content="telephone=no">
+
+  <title>HairOS — Guia de Cortes, Cores e Beleza</title>
+  <meta name="description" content="HairOS — guia de cortes, cores, visagismo e beleza. Inspiração, informação e sugestões de produtos para você saber o que pedir no salão.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://hairosvitrine.vercel.app/">
+
+  <meta name="p:domain_verify" content="dd06cb44ef57a7480eea8850c1535f46"/>
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="HairOS">
+  <meta property="og:title" content="HairOS — Guia de Cortes, Cores e Beleza">
+  <meta property="og:description" content="Cortes, cores, visagismo e maquiagem. Inspiração e informação para o salão.">
+  <meta property="og:url" content="https://hairosvitrine.vercel.app/">
+  <meta property="og:image" content="https://hairosvitrine.vercel.app/img/og-hairos.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="HairOS — guia de beleza">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HairOS — Guia de Cortes, Cores e Beleza">
+  <meta name="twitter:description" content="Cortes, cores, visagismo e maquiagem. Inspiração e informação para o salão.">
+  <meta name="twitter:image" content="https://hairosvitrine.vercel.app/img/og-hairos.webp">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230a0808'/%3E%3Ctext x='50' y='72' font-family='Georgia,serif' font-size='72' fill='%23d9bb90' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9822863010070033" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "HairOS",
+    "url": "https://hairosvitrine.vercel.app/",
+    "description": "Guia de cortes, cores, visagismo e beleza.",
+    "inLanguage": "pt-BR"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "HairOS",
+    "url": "https://hairosvitrine.vercel.app/",
+    "logo": "https://hairosvitrine.vercel.app/img/logo.webp",
+    "email": "hairbymarciostylist@gmail.com",
+    "founder": { "@type": "Person", "name": "Marcio Stylist" }
+  }
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand" aria-label="HairOS — início">
+        <span class="brand-h">H</span><span class="brand-rest">airOS</span>
+      </a>
+      <nav class="nav-desktop" aria-label="Navegação principal">
+        <a href="index.html#artigos">Artigos</a>
+        <a href="kits.html">Kits</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+      </nav>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="drawer">
+        <span><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
+      </button>
+    </div>
+    <div class="header-search">
+      <input type="search" id="buscaInput" class="search-input" placeholder="Buscar corte, cor, cuidado..." aria-label="Buscar no HairOS">
+    </div>
+  </header>
+
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true" inert>
+    <div class="drawer-header">
+      <span class="brand"><span class="brand-h">H</span><span class="brand-rest">airOS</span></span>
+      <button class="drawer-fechar" id="drawerFechar" aria-label="Fechar menu">&times;</button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="index.html#artigos">Artigos</a>
+      <a href="kits.html">Kits</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+      <a href="privacidade.html">Privacidade</a>
+    </nav>
+  </aside>
+
+  <main>
+    <section class="page-title">
+      <h1>Inspiração, informação e o que pedir no salão</h1>
+      <span class="divider"></span>
+      <div class="sub">Cortes · Cores · Visagismo · Cuidados · Noivas · Maquiagem<br><span class="highlight">com curadoria de quem entende</span></div>
+    </section>
+
+    <section id="artigos" class="container">
+      <div class="bloco">
+        <div class="bloco-head"><h2>Últimos Artigos</h2><div class="linha"></div></div>
+
+        <div class="grid" id="gridArtigos">
+
+          <!-- ===== CORTES ===== -->
+          <a class="card" href="artigos/bob-italiano.html" data-titulo="Bob Italiano" data-secao="Cortes">
+            <span class="card-img-wrap">
+              <img src="img/bob-italiano-frente.webp" alt="Bob Italiano" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Cortes</span>
+              <span class="card-nome">Bob Italiano</span>
+              <span class="card-sub">Arredondado, volumoso e com movimento</span>
+            </span>
+          </a>
+
+          <a class="card" href="artigos/butterfly-cut.html" data-titulo="Butterfly Cut" data-secao="Cortes">
+            <span class="card-img-wrap">
+              <img src="img/butterfly-cut-frente.webp" alt="Butterfly Cut" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Cortes</span>
+              <span class="card-nome">Butterfly Cut</span>
+              <span class="card-sub">Camadas leves em volta do rosto</span>
+            </span>
+          </a>
+
+          <a class="card" href="artigos/kitty-cut.html" data-titulo="Kitty Cut" data-secao="Cortes">
+            <span class="card-img-wrap">
+              <img src="img/kitty-cut-frente.webp" alt="Kitty Cut" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Cortes</span>
+              <span class="card-nome">Kitty Cut</span>
+              <span class="card-sub">Topo em camadas e franja desfiada</span>
+            </span>
+          </a>
+
+          <a class="card" href="artigos/pixie.html" data-titulo="Pixie" data-secao="Cortes">
+            <span class="card-img-wrap">
+              <img src="img/pixie-frente.webp" alt="Pixie" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Cortes</span>
+              <span class="card-nome">Pixie</span>
+              <span class="card-sub">Curto, leve e fácil de manter</span>
+            </span>
+          </a>
+
+          <a class="card" href="artigos/velvet.html" data-titulo="Velvet" data-secao="Cortes">
+            <span class="card-img-wrap">
+              <img src="img/velvet-frente.webp" alt="Velvet" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Cortes</span>
+              <span class="card-nome">Velvet</span>
+              <span class="card-sub">Médio, macio e com brilho aveludado</span>
+            </span>
+          </a>
+
+          <a class="card" href="artigos/shaggy.html" data-titulo="Shaggy" data-secao="Cortes">
+            <span class="card-img-wrap">
+              <img src="img/shaggy-frente.webp" alt="Shaggy" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Cortes</span>
+              <span class="card-nome">Shaggy</span>
+              <span class="card-sub">Camadas desfiadas e ar despojado</span>
+            </span>
+          </a>
+
+          <a class="card" href="artigos/wolf-cut.html" data-titulo="Wolf Cut" data-secao="Cortes">
+            <span class="card-img-wrap">
+              <img src="img/wolf-cut-frente.webp" alt="Wolf Cut" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Cortes</span>
+              <span class="card-nome">Wolf Cut</span>
+              <span class="card-sub">Camadas curtas no topo e comprimento solto</span>
+            </span>
+          </a>
+
+          <a class="card" href="artigos/bixie.html" data-titulo="Bixie" data-secao="Cortes">
+            <span class="card-img-wrap">
+              <img src="img/bixie-frente.webp" alt="Bixie" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Cortes</span>
+              <span class="card-nome">Bixie</span>
+              <span class="card-sub">Entre o bob e o pixie</span>
+            </span>
+          </a>
+
+          <a class="card" href="artigos/long-bob.html" data-titulo="Long Bob" data-secao="Cortes">
+            <span class="card-img-wrap">
+              <img src="img/long-bob-frente.webp" alt="Long Bob" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Cortes</span>
+              <span class="card-nome">Long Bob</span>
+              <span class="card-sub">Bob alongado na altura dos ombros</span>
+            </span>
+          </a>
+
+          <a class="card" href="artigos/nirvana.html" data-titulo="Nirvana" data-secao="Cortes">
+            <span class="card-img-wrap">
+              <img src="img/nirvana-frente.webp" alt="Nirvana" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Cortes</span>
+              <span class="card-nome">Nirvana</span>
+              <span class="card-sub">Camadas longas e movimento suave</span>
+            </span>
+          </a>
+
+          <!-- ===== VISAGISMO ===== -->
+          <a class="card" href="artigos/visagismo-o-que-e.html" data-titulo="Visagismo: o que é" data-secao="Visagismo">
+            <span class="card-img-wrap">
+              <img src="img/visagismo-o-que-e-1.webp" alt="Visagismo: o que é" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Visagismo</span>
+              <span class="card-nome">Visagismo: o que é</span>
+              <span class="card-sub">Como escolher o corte pelo rosto</span>
+            </span>
+          </a>
+
+          <a class="card" href="artigos/visagismo-formatos-de-rosto.html" data-titulo="Formatos de Rosto" data-secao="Visagismo">
+            <span class="card-img-wrap">
+              <img src="img/visagismo-formatos-1.webp" alt="Formatos de Rosto" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Visagismo</span>
+              <span class="card-nome">Formatos de Rosto</span>
+              <span class="card-sub">Oval, redondo, quadrado, coração e oblongo</span>
+            </span>
+          </a>
+
+          <!-- ===== COLORAÇÃO ===== -->
+          <a class="card" href="artigos/coloracao-subtom-de-pele.html" data-titulo="Coloração e Subtom" data-secao="Coloração">
+            <span class="card-img-wrap">
+              <img src="img/coloracao-subtom-1.webp" alt="Coloração e Subtom" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Coloração</span>
+              <span class="card-nome">Coloração e Subtom</span>
+              <span class="card-sub">Como escolher o tom certo para a sua pele</span>
+            </span>
+          </a>
+
+          <a class="card" href="artigos/coloracao-mechas-iluminado.html" data-titulo="Mechas e Iluminado" data-secao="Coloração">
+            <span class="card-img-wrap">
+              <img src="img/coloracao-mechas-1.webp" alt="Mechas e Iluminado" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Coloração</span>
+              <span class="card-nome">Mechas e Iluminado</span>
+              <span class="card-sub">Diferenças, manutenção e como pedir</span>
+            </span>
+          </a>
+
+          <!-- ===== CUIDADOS ===== -->
+          <a class="card" href="artigos/cuidados-cronograma-capilar.html" data-titulo="Cronograma Capilar" data-secao="Cuidados">
+            <span class="card-img-wrap">
+              <img src="img/cuidados-cronograma-1.webp" alt="Cronograma Capilar" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Cuidados</span>
+              <span class="card-nome">Cronograma Capilar</span>
+              <span class="card-sub">O que é e como montar o seu</span>
+            </span>
+          </a>
+
+          <a class="card" href="artigos/cuidados-fio-fino-grosso.html" data-titulo="Fio Fino x Grosso" data-secao="Cuidados">
+            <span class="card-img-wrap">
+              <img src="img/cuidados-fio-1.webp" alt="Fio Fino x Grosso" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Cuidados</span>
+              <span class="card-nome">Fio Fino x Grosso</span>
+              <span class="card-sub">Como ajustar a rotina de cuidado</span>
+            </span>
+          </a>
+
+          <!-- ===== NOIVAS ===== -->
+          <a class="card" href="artigos/noivas-cronograma-cabelo.html" data-titulo="Cabelo de Noiva" data-secao="Noivas">
+            <span class="card-img-wrap">
+              <img src="img/noivas-cronograma-1.webp" alt="Cabelo de Noiva" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Noivas</span>
+              <span class="card-nome">Cabelo de Noiva</span>
+              <span class="card-sub">Cronograma de cuidados antes do casamento</span>
+            </span>
+          </a>
+
+          <a class="card" href="artigos/noivas-penteados.html" data-titulo="Penteados de Noiva" data-secao="Noivas">
+            <span class="card-img-wrap">
+              <img src="img/noivas-penteados-1.webp" alt="Penteados de Noiva" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Noivas</span>
+              <span class="card-nome">Penteados de Noiva</span>
+              <span class="card-sub">Solto, semipreso e preso</span>
+            </span>
+          </a>
+
+          <!-- ===== MAQUIAGEM ===== -->
+          <a class="card" href="artigos/maquiagem-formato-de-rosto.html" data-titulo="Maquiagem por Formato" data-secao="Maquiagem">
+            <span class="card-img-wrap">
+              <img src="img/maquiagem-formato-1.webp" alt="Maquiagem por Formato" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Maquiagem</span>
+              <span class="card-nome">Maquiagem por Formato</span>
+              <span class="card-sub">O que destacar em cada rosto</span>
+            </span>
+          </a>
+
+          <a class="card" href="artigos/maquiagem-noiva.html" data-titulo="Make de Noiva" data-secao="Maquiagem">
+            <span class="card-img-wrap">
+              <img src="img/maquiagem-noiva-1.webp" alt="Make de Noiva" loading="lazy" onerror="_imgErro(this)">
+            </span>
+            <span class="card-text-wrap">
+              <span class="card-secao">Maquiagem</span>
+              <span class="card-nome">Make de Noiva</span>
+              <span class="card-sub">À prova de lágrima, calor e foto</span>
+            </span>
+          </a>
+
+        </div>
+
+        <p id="buscaVazia" class="busca-vazia" style="display:none;">Nenhum artigo encontrado. Tente "pixie", "bob", "visagismo", "noiva" ou "cronograma".</p>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="index.html#artigos">Artigos</a>
+      <a href="kits.html">Kits</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+      <a href="privacidade.html">Privacidade</a>
+      <a href="privacidade.html#termos">Termos</a>
+    </div>
+    <p class="footer-note">
+      <span class="gold">Links de afiliado:</span> ao comprar por um link indicado, o site pode receber comissão — sem custo extra para você.
+      Conteúdo informativo; consulte um profissional antes de procedimentos químicos.
+      <br>© <span id="anoAtual">2026</span> HairOS
+    </p>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
